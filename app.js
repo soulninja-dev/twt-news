@@ -3,6 +3,7 @@ const express = require("express");
 const app = express();
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
+const errorHandler = require("./middleware/error");
 
 // mongoose db
 const mongoose = require("mongoose");
@@ -43,8 +44,8 @@ const authRouter = require("./routes/auth.route");
 app.get("/", (req, res) => {
 	res.redirect("/posts");
 });
+
+// route handlers for posts and auth
 app.use("/posts", postsRouter);
 app.use("/auth", authRouter);
-app.use((req, res) => {
-	res.status(400).send("404 not found");
-});
+app.use(errorHandler);
