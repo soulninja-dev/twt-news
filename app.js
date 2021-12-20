@@ -4,13 +4,14 @@ const app = express();
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
-
-// mongoose db
 const mongoose = require("mongoose");
+const dotenv = require("dotenv").config({ path: "./config/.env" });
 
-// dotenv
-const dotenv = require("dotenv");
-dotenv.config({ path: "./config/.env" });
+// route handlers
+const postsRouter = require("./routes/post.route");
+const authRouter = require("./routes/auth.route");
+
+const { setUserInfo } = require("./middleware/auth");
 
 // uri of the database
 const dbURI = process.env.DBURI.toString();
@@ -34,12 +35,12 @@ app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// access request cookies from req.cookies
 app.use(cookieParser());
 app.use(morgan("dev"));
 
-// route handlers
-const postsRouter = require("./routes/post.route");
-const authRouter = require("./routes/auth.route");
+// auth middleware
+app.get("*", setUserInfo);
 
 app.get("/", (req, res) => {
 	res.redirect("/posts");
@@ -49,3 +50,7 @@ app.get("/", (req, res) => {
 app.use("/posts", postsRouter);
 app.use("/auth", authRouter);
 app.use(errorHandler);
+
+app.use((req, res) => {
+	res.status(404).send("404, not found");
+});

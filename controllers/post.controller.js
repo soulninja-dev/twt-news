@@ -12,14 +12,12 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 			body: "didn't you read the title and subtitle :mhm:",
 		};
 	}
-
-	console.log(posts);
 	res.render("home", { posts });
 });
 
 const postCreatePage = asyncHandler(async (req, res, next) => {
 	const { title, subtitle, body } = req.body;
-
+	// add author id from req.locals.user set by auth middleware
 	await PostModel.create({
 		title,
 		subtitle,

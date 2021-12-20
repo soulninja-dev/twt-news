@@ -8,10 +8,13 @@ const {
 	deletePost,
 } = require("../controllers/post.controller.js");
 
+const { protectRoute } = require("../middleware/auth");
+
 // /posts
 router.route("/").get(getHomePage);
 // /posts/create
-router.route("/create").get(getCreatePage).post(postCreatePage);
+router.route("/create").get(getCreatePage).post(protectRoute, postCreatePage);
+// todo:  for delete req, add a middleware which checks if the author.id matches the jwt user's id
 router.route("/:id").get(getPostPage).delete(deletePost);
 
 module.exports = router;
