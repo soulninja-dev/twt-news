@@ -31,9 +31,9 @@ userSchema.statics.login = async function (email, password) {
 			// passwords have matched :thumbsup:
 			return user;
 		}
-		throw Error("incorrect email/password");
+		throw Error("incorrect");
 	}
-	throw Error("incorrect email/password");
+	throw Error("incorrect");
 };
 
 const User = mongoose.model("User", userSchema);
