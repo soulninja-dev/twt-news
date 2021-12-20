@@ -16,12 +16,12 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 });
 
 const postCreatePage = asyncHandler(async (req, res, next) => {
-	const { title, subtitle, body } = req.body;
-	// add author id from req.locals.user set by auth middleware
+	const { title, subtitle, body, author } = req.body;
 	await PostModel.create({
 		title,
 		subtitle,
 		body,
+		author,
 	});
 
 	res.redirect("/posts");
@@ -37,7 +37,6 @@ const getPostPage = (req, res, next) => {
 
 const deletePost = asyncHandler(async (req, res, next) => {
 	const id = req.params.id;
-	console.log(`id: ${id}`);
 	const post = await PostModel.findById(id);
 
 	if (!post) {

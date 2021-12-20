@@ -20,6 +20,7 @@ const postSchema = new Schema(
 		author: {
 			type: mongoose.Schema.ObjectId,
 			ref: "User",
+			required: [true, "Please add an author id"],
 		},
 	},
 	{
