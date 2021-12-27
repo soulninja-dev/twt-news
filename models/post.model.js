@@ -25,6 +25,9 @@ const postSchema = new Schema(
 			ref: "User",
 			required: [true, "Please add an author id"],
 		},
+		html: {
+			type: String,
+		},
 	},
 	{
 		timestamps: true,
