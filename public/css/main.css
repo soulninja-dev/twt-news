@@ -1,0 +1,66 @@
+* {
+  scrollbar-width: 4px;
+  scrllbar-height: 4px;
+  scrollbar-color: #c4c4c4aa;
+  scrollbar-face-color: #c4c4c4aa;
+} /* Browsers other than webkit, I think? */
+
+body, html {
+  background-color: #1d2632;
+  height: 100%;
+  font-family: Montserrat, sans-serif;
+}
+
+.content-container {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 64px;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+}
+
+.content {
+  flex: 1;
+  max-width: 1400px;
+  display: flex;
+  margin: 20px;
+}
+
+@media screen and (max-width: 900px) {
+  .content {
+    min-width: 200px;
+  }
+}
+
+::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+::-webkit-scrollbar-track {
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-corner {
+}
+
+::-webkit-scrollbar-thumb {
+  -webkit-border-radius: 2px;
+  border-radius: 10px;
+  background: #c4c4c4aa;
+}
+
+.unselectable {
+  user-select: none;
+  -moz-user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.non-draggable {
+  user-drag: none;
+  -webkit-user-drag: none;
+}

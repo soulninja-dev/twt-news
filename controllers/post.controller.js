@@ -12,6 +12,7 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 			body: "didn't you read the title and subtitle :mhm:",
 		};
 	}
+
 	res.render("home", { posts });
 });
 

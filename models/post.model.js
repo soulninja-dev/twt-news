@@ -17,6 +17,9 @@ const postSchema = new Schema(
 			type: String,
 			required: [true, "Please add a body"],
 		},
+		subbody: {
+			type: String,
+		},
 		author: {
 			type: mongoose.Schema.ObjectId,
 			ref: "User",
@@ -27,5 +30,15 @@ const postSchema = new Schema(
 		timestamps: true,
 	}
 );
+
+postSchema.pre("save", function (next) {
+	if (this.body.length > 50) {
+		this.subbody = this.body.substring(0, 47) + "...";
+	} else {
+		this.subbody = this.body.substring(0, this.body.length - 3) + "...";
+	}
+
+	next();
+});
 
 module.exports = mongoose.model("posts", postSchema);
