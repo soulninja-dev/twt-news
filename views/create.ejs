@@ -34,23 +34,18 @@
 
                 <label class="post-form-label" for="title">News Title:</label>
                 <input class="post-form-input" required type="text" id="title" name="title" maxlength="20"
-                    value="Epic News">
+                    autocomplete="off">
 
                 <label class="post-form-label" for="subtitle">News Subtitle:</label>
-                <input class="post-form-input" required type="text" id="subtitle" name="subtitle" maxlength="30"
-                    value="Yoquack emoji most popular">
+                <input class="post-form-input" required type="text" id="subtitle" name="subtitle" maxlength="50"
+                    autocomplete="off">
 
-                <label class="post-form-label" for="body">News Body:</label>
-                <textarea class="post-form-textarea" required type="text" id="body" name="body" maxlength="1000">
-As it currently stands, the :yoquack: emoji has officially become the most popular emoji on the tech with tim server, surpassing the usages of previously most used emoji :smilecat:
-            </textarea>
-
-                <label class="post-form-label" for="markdown">Custom markdown to display (optional):</label>
+                <label class="post-form-label" for="markdown">News Body (markdown format): </label>
                 <textarea class="post-form-textarea" oninput="markdownInput(this.value)" type="text" id="markdown"
                     name="html" maxlength="5000"></textarea>
 
-                <label class="post-form-label hidden" id="markdown-preview-label" for="markdown-preview">Markdown
-                    preview:</label>
+                <label class="post-form-label hidden" id="markdown-preview-label" for="markdown-preview">News
+                    Preview:</label>
                 <div id="markdown-preview"></div>
             </form>
         </div>
