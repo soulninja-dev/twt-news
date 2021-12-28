@@ -32,10 +32,6 @@ const getCreatePage = (req, res, next) => {
 	res.render("create");
 };
 
-const getPostPage = (req, res, next) => {
-	res.render("post");
-};
-
 const deletePost = asyncHandler(async (req, res, next) => {
 	const id = req.params.id;
 	const post = await PostModel.findById(id);
@@ -52,6 +48,5 @@ module.exports = {
 	getHomePage,
 	postCreatePage,
 	getCreatePage,
-	getPostPage,
 	deletePost,
 };

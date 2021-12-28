@@ -15,6 +15,6 @@ router.route("/").get(getHomePage);
 // /posts/create
 router.route("/create").get(getCreatePage).post(protectRoute, postCreatePage);
 // todo:  for delete req, add a middleware which checks if the author.id matches the jwt user's id
-router.route("/:id").get(getPostPage).delete(checkUser, deletePost);
+router.route("/:id").delete(checkUser, deletePost);
 
 module.exports = router;
