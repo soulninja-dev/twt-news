@@ -34,14 +34,4 @@ const postSchema = new Schema(
 	}
 );
 
-postSchema.pre("save", function (next) {
-	if (this.body.length > 50) {
-		this.subbody = this.body.substring(0, 47) + "...";
-	} else {
-		this.subbody = this.body.substring(0, this.body.length - 3) + "...";
-	}
-
-	next();
-});
-
 module.exports = mongoose.model("posts", postSchema);
