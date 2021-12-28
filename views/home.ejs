@@ -2,62 +2,62 @@
 <html lang="en">
 
 <head>
-  <meta charset="utf-8">
-  <title></title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="css/normalize.css">
-  <link rel="stylesheet" href="css/main.css">
-  <link rel="stylesheet" href="css/top-bar.css">
-  <link rel="stylesheet" href="css/news-item.css">
-  <link rel="stylesheet" href="css/news-content.css">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/normalize.css" type="text/css">
+    <link rel="stylesheet" href="css/main.css" type="text/css">
+    <link rel="stylesheet" href="css/posts/layout.css" type="text/css">
+    <link rel="stylesheet" href="css/posts/top-bar.css" type="text/css">
+    <link rel="stylesheet" href="css/posts/news-item.css" type="text/css">
+    <link rel="stylesheet" href="css/posts/news-content.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet">
 </head>
 
 <body>
-  <div class="top-bar">
+<div class="top-bar">
     <div class="top-bar-hamburger-container">
-      <img class="top-bar-hamburger" src="menu.png" alt="menu" onclick="collapseNewsItem()">
+        <img class="top-bar-hamburger" src="menu.png" alt="menu" onclick="collapseNewsItem()">
     </div>
     <div class="top-bar-text-container">
-      <div class="top-bar-text">TWT News</div>
+        <div class="top-bar-text">TWT News</div>
     </div>
     <div class="top-bar-login-button-container">
-      <a class="top-bar-login-button" href="#">Login</a>
+        <a class="top-bar-login-button" href="#">Login</a>
     </div>
-  </div>
-  <div class="content-container">
+</div>
+<div class="content-container">
     <div class="content">
-      <div class="news-items-container">
-        <% posts.forEach(post=> { %>
-          <div class="news-item">
-            <img class="news-item-thumbnail unselectable non-draggable" src="/yoquack.jpg" alt="duck">
-            <div class="news-item-content">
-              <div class="news-item-content-text">
-                <div class="news-item-title">
-                  <%= post.title %>
+        <div class="news-items-container">
+            <% posts.forEach(post => { %>
+                <div class="news-item">
+                    <img class="news-item-thumbnail unselectable non-draggable" src="/yoquack.jpg" alt="duck">
+                    <div class="news-item-content">
+                        <div class="news-item-content-text">
+                            <div class="news-item-title">
+                                <%= post.title %>
+                            </div>
+                            <div class="news-item-subtitle">
+                                <%= post.subtitle %>
+                            </div>
+                            <div class="news-item-description">
+                                <%= post.subbody %>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="news-item-view-button unselectable non-draggable"
+                         onclick="newsItemClicked(`<%= post.title %>`, `<%= post.subtitle %>`, `<%= post.body %>`, `<%= post.html %>`)">
+                    </div>
                 </div>
-                <div class="news-item-subtitle">
-                  <%= post.subtitle %>
-                </div>
-                <div class="news-item-description">
-                  <%= post.subbody %>
-                </div>
-              </div>
-            </div>
-            <div class="news-item-view-button unselectable non-draggable"
-              onclick="newsItemClicked('<%= post.title %>', '<%= post.subtitle %>', '<%= post.body %>', '<%= post.html %>')">
-            </div>
-          </div>
-          <% }); %>
-      </div>
-      <div class="news-content-container">
-      </div>
+            <% }); %>
+        </div>
+        <div class="news-content-container">
+        </div>
     </div>
-  </div>
-  <script src="js/main.js"></script>
+</div>
+<script src="js/home.js"></script>
 
-  </body<% %>
-
+</body>
 </html>

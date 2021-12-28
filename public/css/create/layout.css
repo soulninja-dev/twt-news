@@ -1,0 +1,27 @@
+.content-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 64px;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: auto;
+}
+
+.content {
+    flex: 1;
+    max-width: 1400px;
+    display: flex;
+    flex-flow: column nowrap;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+@media screen and (max-width: 900px) {
+    .content {
+        min-width: 300px;
+    }
+}

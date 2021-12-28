@@ -1,6 +1,5 @@
 var mobile = window.matchMedia("screen and (max-width: 900px)");
 function collapseNewsItem() {
-	console.log("here 2");
 	let items =
 		document.getElementsByClassName("news-items-container")[0] || false;
 	let news_container =
@@ -24,7 +23,7 @@ function collapseNewsItem() {
 }
 
 function newsItemClicked(title, subtitle, body, html) {
-	newsContentContainer = document.getElementsByClassName(
+	let newsContentContainer = document.getElementsByClassName(
 		"news-content-container"
 	)[0];
 	newsContentContainer.innerHTML =
@@ -39,7 +38,6 @@ function newsItemClicked(title, subtitle, body, html) {
           </div>
         </div>
 	`;
-	console.log("here");
 	if (mobile.matches) {
 		collapseNewsItem();
 	}

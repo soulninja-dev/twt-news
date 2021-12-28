@@ -81,8 +81,8 @@ const checkUser = async (req, res, next) => {
 					"FOUND token, checking if user is the same user as the post's author"
 				);
 				console.log(`userid: ${userId}`);
-				console.log(`decodedtoken id: ${decodedToken.id}`);
-				if (userId == decodedToken.id) {
+				console.log(`decoded token-id: ${decodedToken.id}`);
+				if (userId === decodedToken.id) {
 					console.log("YES, it's the same user");
 					next();
 				} else {
@@ -94,7 +94,7 @@ const checkUser = async (req, res, next) => {
 	}
 	// if token does not exist in cookies, then go to home page, coz home page should be accessible without logging in too
 	else {
-		console.log("NO token found, redirectig to homepage");
+		console.log("NO token found, redirecting to homepage");
 		res.redirect("/posts");
 	}
 };

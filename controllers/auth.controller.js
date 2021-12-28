@@ -26,7 +26,7 @@ const postRegister = async (req, res, next) => {
 	if (!name || typeof name != "string") {
 		return res.json({
 			status: "error",
-			error: "Name doesnt pass all criterias",
+			error: "Name doesnt pass all criteria",
 		});
 	}
 	if (!password || password.length < 8) {

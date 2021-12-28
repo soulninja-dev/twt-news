@@ -1,0 +1,47 @@
+.post-form {
+    flex: 1;
+    display: grid;
+    grid-template-columns: auto;
+    grid-gap: 10px;
+    width: 70%;
+    min-width: 250px;
+}
+
+#form-submit-button {
+    color: white;
+    background-color: #e35522;
+    width: max-content;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.post-form-label {
+    margin-top: 20px;
+    font-size: 1.3em;
+}
+
+.post-form-input, .post-form-textarea {
+    background-color: #2d3a4d;
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 5px;
+}
+
+.post-form-textarea {
+    resize: none;
+    height: 200px;
+}
+
+#markdown-preview {
+    background-color: #2d3a4d;
+    padding: 0 10px;
+}
+
+.hidden {
+    display: none;
+}
