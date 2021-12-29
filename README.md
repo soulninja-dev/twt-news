@@ -35,7 +35,7 @@ DBURI=[mongo db url]
 JWT_SECRET=[some random gibberish]
 ```
 
-- run `npm install`
+- run `npm ci`
 - run `node seeder.js -d`
 - run `node seeder.js -i`
 - run `npm run dev`
