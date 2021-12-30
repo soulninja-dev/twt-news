@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const postModel = require("../models/post.model");
 const User = require("../models/user.model");
 
-// what is the use of this then - to protect routes where only " logged in " users are allowed
+// what is the use of this? - to protect routes where only " logged in " users are allowed
 const protectRoute = (req, res, next) => {
 	const token = req.cookies.jwt;
 

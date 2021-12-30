@@ -16,8 +16,26 @@ function markdownInput(text) {
 	}
 }
 
-function submitForm(event) {
+async function submitForm(event) {
 	event.preventDefault();
 	const text = document.getElementById("markdown").value;
-	console.log(converter.makeHtml(text));
+	const title = document.getElementById("title").value;
+	const subtitle = document.getElementById("subtitle").value;
+	const body = converter.makeHtml(text);
+	console.log(`title: ${title}\tsubtitle:${subtitle}\tbody:${body}`);
+	// send post req to /posts/create
+	const res = await fetch("/posts/create", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({ title, subtitle, body }),
+	}).then((data) => data.json());
+
+	if (res.status === "ok") {
+		window.location.href = "/posts";
+	} else {
+		// implement error
+		console.log("errors errors");
+	}
 }

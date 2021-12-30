@@ -1,6 +1,33 @@
 const PostModel = require("../models/post.model");
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
+const jwt = require("jsonwebtoken");
+
+const getAuthorId = async (req) => {
+	const token = req.cookies.jwt;
+	if (!token) {
+		console.log("hello there");
+		return {
+			status: "notfound",
+			data: "No token found sussy baka",
+		};
+	}
+	jwt.verify(token, process.env.JWT_SECRET, async (err, decodedToken) => {
+		if (err) {
+			return {
+				status: "invalid",
+				data: "Invalid token.",
+			};
+		}
+		// best case scenario ( everything is perfect )
+		else {
+			return {
+				status: "ok",
+				data: decodedToken.id,
+			};
+		}
+	});
+};
 
 const getHomePage = asyncHandler(async (req, res, next) => {
 	const posts = await PostModel.find().sort({ createdAt: -1 });
@@ -17,15 +44,32 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 });
 
 const postCreatePage = asyncHandler(async (req, res, next) => {
-	const { title, subtitle, body, author } = req.body;
+	const { title, subtitle, body } = req.body;
+	const result = await getAuthorId(req);
+	let author = null;
+
+	switch (result.status) {
+		case "ok": {
+			author = result.status;
+			break;
+		}
+		case "notfound": {
+			author = "61cdf447de7d88dd6ff69885";
+			break;
+		}
+		default: {
+			// returned invalid
+			return next(new ErrorResponse("Invalid token, please login again", 401));
+		}
+	}
+
 	await PostModel.create({
 		title,
 		subtitle,
 		body,
 		author,
 	});
-
-	res.redirect("/posts");
+	res.status(201).json({ status: "ok" });
 });
 
 const getCreatePage = (req, res, next) => {

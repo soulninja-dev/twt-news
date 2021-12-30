@@ -4,17 +4,17 @@ const {
 	getHomePage,
 	postCreatePage,
 	getCreatePage,
-	getPostPage,
 	deletePost,
 } = require("../controllers/post.controller.js");
 
 const { protectRoute, checkUser } = require("../middleware/auth");
 
-// /posts
 router.route("/").get(getHomePage);
-// /posts/create
-router.route("/create").get(getCreatePage).post(protectRoute, postCreatePage);
-// todo:  for delete req, add a middleware which checks if the author.id matches the jwt user's id
-router.route("/:id").delete(checkUser, deletePost);
+// router.route("/create").get(getCreatePage).post(protectRoute, postCreatePage);
+// router.route("/:id").delete(checkUser, deletePost);
+
+// temp routes without auth
+router.route("/create").get(getCreatePage).post(postCreatePage);
+router.route("/:id").delete(deletePost);
 
 module.exports = router;
