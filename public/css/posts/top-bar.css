@@ -1,51 +1,59 @@
 .top-bar {
-    display: flex;
-    flex-flow: row nowrap;
-    align-items: center;
-    height: 64px;
-    background-color: #232d3b;
-    width: 100%;
+	display: flex;
+	flex-flow: row nowrap;
+	align-items: center;
+	height: 64px;
+	background-color: #232d3b;
+	width: 100%;
 }
 
 .top-bar-hamburger-container {
-    flex: 1;
-    display: flex;
-    justify-content: flex-start;
+	flex: 1;
+	display: flex;
+	justify-content: flex-start;
 }
 
 .top-bar-hamburger {
-    padding-left: 10px;
+	padding-left: 10px;
 }
 
 .top-bar-text-container {
-    flex: 1;
-    display: flex;
-    justify-content: center;
+	flex: 1;
+	display: flex;
+	justify-content: center;
 }
 
 .top-bar-text {
-    color: white;
-    font-size: 1.8em;
-    text-align: center;
+	color: white;
+	font-size: 1.8em;
+	text-align: center;
+}
+
+.top-bar-name-logged-in {
+	flex: 1;
+	display: flex;
+	justify-content: flex-end;
+	margin-right: 15px;
+	padding: 10px 15px;
 }
 
 .top-bar-login-button-container {
-    flex: 1;
-    display: flex;
-    justify-content: flex-end;
+	flex: 1;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .top-bar-login-button {
-    text-decoration: none;
-    color: white;
-    font-size: 1.1em;
-    margin-right: 15px;
-    padding: 10px 15px;
-    background-color: #e35522;
-    border-radius: 8px;
+	text-decoration: none;
+	color: white;
+	font-size: 1.1em;
+	margin-right: 15px;
+	padding: 10px 15px;
+	background-color: #e35522;
+	border-radius: 8px;
 }
 
 .top-bar-login-button:visited {
-    text-decoration: none;
-    color: white;
+	text-decoration: none;
+	color: white;
 }
