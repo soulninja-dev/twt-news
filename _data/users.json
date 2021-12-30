@@ -5,5 +5,12 @@
 		"email": "testuser@test.com",
 		"password": "$2a$10$cJSMk7UgSOpchWdgQcf8su33vGOJ2PXARuD895108s63rubQwRpOW",
 		"__v": 0
+	},
+	{
+		"_id": "61cdf447de7d88dd6ff69885",
+		"name": "Anonymous user",
+		"email": "anon@anon.com",
+		"password": "$2a$10$4xCm3BQ8gKSNUZPFpGPXPOmLhTAy3i4s.gS9H1lD7wBL70NcTzhte",
+		"__v": 0
 	}
 ]
