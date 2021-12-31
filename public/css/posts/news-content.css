@@ -8,9 +8,6 @@
 
 .news-content {
     width: 100%;
-    display: flex;
-    flex-flow: column nowrap;
-    align-items: center;
 }
 
 .news-content-image {

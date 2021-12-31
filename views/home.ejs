@@ -17,6 +17,7 @@
 </head>
 
 <body>
+    <script src="js/home.js"></script>
     <div class="top-bar">
         <div class="top-bar-hamburger-container">
             <img class="top-bar-hamburger" src="menu.png" alt="menu" onclick="collapseNewsItem()">
@@ -37,34 +38,48 @@
     <div class="content-container">
         <div class="content">
             <div class="news-items-container">
-                <% posts.forEach(post=> { %>
-                    <div class="news-item">
-                        <img class="news-item-thumbnail unselectable non-draggable" src="/yoquack.jpg" alt="duck">
-                        <div class="news-item-content">
-                            <div class="news-item-content-text">
-                                <div class="news-item-title">
-                                    <%= post.title %>
-                                </div>
-                                <div class="news-item-subtitle">
-                                    <%= post.subtitle %>
-                                </div>
-                                <div class="news-item-description">
-                                    <%= post.subbody %>
+                <div class="news-items-control-area">
+                    <div class="news-items-pagination-container">
+                        <img src="chevron-left.png" alt="Prev" class="pagination-control-button" onclick="pagePrev()">
+                        <form action="javascript:void(0);" onsubmit="return gotPageInput()">
+                            <label for="pagination-page-input" id="pagination-page-label">Page
+                                <input type="text" id="pagination-page-input" maxlength="2" value="1" onfocusout="updatePageInputValue()"> of 20
+                                <input type="submit" style="display:none;">
+                            </label>
+                        </form>
+                        <img src="chevron-right.png" alt="Next" class="pagination-control-button" onclick="pageNext()">
+                    </div>
+                    <a class="news-items-create-button" href="/posts/create">Create</a>
+                </div>
+                <div class="news-items-scroll-area">
+                    <% posts.forEach(post=> { %>
+                        <div class="news-item">
+                            <img class="news-item-thumbnail unselectable non-draggable" src="/yoquack.jpg" alt="duck">
+                            <div class="news-item-content">
+                                <div class="news-item-content-text">
+                                    <div class="news-item-title">
+                                        <%= post.title %>
+                                    </div>
+                                    <div class="news-item-subtitle">
+                                        <%= post.subtitle %>
+                                    </div>
+                                    <div class="news-item-description">
+                                        <%= post.subbody %>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="news-item-view-button unselectable non-draggable"
+                                 onclick="newsItemClicked(`<%= post.body %>`)">
+                            </div>
                         </div>
-                        <div class="news-item-view-button unselectable non-draggable"
-                            onclick="newsItemClicked(`<%= post.title %>`, `<%= post.subtitle %>`, `<%= post.body %>`, `<%= post.html %>`)">
-                        </div>
-                    </div>
                     <% }); %>
+                </div>
             </div>
             <div class="news-content-container">
+                <div class="news-content"></div>
             </div>
         </div>
     </div>
-    <script src="js/home.js"></script>
-
 </body>
 
 </html>
