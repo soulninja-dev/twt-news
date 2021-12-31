@@ -41,7 +41,7 @@
                 <div class="news-items-control-area">
                     <div class="news-items-pagination-container">
                         <img src="chevron-left.png" alt="Prev" class="pagination-control-button" onclick="pagePrev()">
-                        <form action="javascript:void(0);" onsubmit="return gotPageInput()">
+                        <form action="javascript:void(0);" onsubmit="return gotPageInput()" style="width: 130px;">
                             <label for="pagination-page-input" id="pagination-page-label">Page
                                 <input type="text" id="pagination-page-input" maxlength="2" value="1" onfocusout="updatePageInputValue()"> of 20
                                 <input type="submit" style="display:none;">
