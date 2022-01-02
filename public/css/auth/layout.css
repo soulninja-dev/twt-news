@@ -1,33 +1,35 @@
-.login-container-container, .register-container-container  {
-    position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    overflow: hidden;
-    z-index: 1;
+.login-container-container,
+.register-container-container {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	overflow: hidden;
+	z-index: 1;
 }
 
-.register-container-container  {
-    z-index: 0;
+.register-container-container {
+	z-index: 0;
 }
 
-.login-container, .register-container {
-    position: relative;
-    flex: 1;
-    max-width: 800px;
-    margin: 20px;
+.login-container,
+.register-container {
+	position: relative;
+	flex: 1;
+	max-width: 800px;
+	margin: 20px;
 }
 
 .hidden {
-    display: none !important;
+	display: none !important;
 }
 
 @media screen and (max-width: 900px) {
-    .content {
-        min-width: 300px;
-    }
+	.content {
+		min-width: 300px;
+	}
 }
