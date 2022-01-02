@@ -65,3 +65,7 @@
 	font-size: 0.9em;
 	margin: 10px 10px 25px;
 }
+
+#register-button:hover {
+	text-decoration: underline;
+}

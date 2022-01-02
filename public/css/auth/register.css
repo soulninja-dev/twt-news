@@ -30,18 +30,17 @@
 	outline: 1px solid #e35522;
 }
 
+#register-name-input {
+	background: url("../../assets/account.png") #2d394d no-repeat center left 7px;
+	background-size: auto 80%;
+}
+
 #register-email-input {
 	background: url("../../assets/email.png") #2d394d no-repeat center left 7px;
 	background-size: auto 80%;
 }
 
 #register-password-input {
-	background: url("../../assets/key-variant.png") #2d394d no-repeat center left
-		7px;
-	background-size: auto 80%;
-}
-
-#register-password-input-confirm {
 	background: url("../../assets/key-variant.png") #2d394d no-repeat center left
 		7px;
 	background-size: auto 80%;
