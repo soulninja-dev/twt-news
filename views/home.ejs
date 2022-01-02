@@ -20,7 +20,7 @@
     <script src="js/home.js"></script>
     <div class="top-bar">
         <div class="top-bar-hamburger-container">
-            <img class="top-bar-hamburger" src="menu.png" alt="menu" onclick="collapseNewsItem()">
+            <img class="top-bar-hamburger" src="assets/menu.png" alt="menu" onclick="collapseNewsItem()">
         </div>
         <div class="top-bar-text-container">
             <div class="top-bar-text">TWT News</div>
@@ -40,21 +40,25 @@
             <div class="news-items-container">
                 <div class="news-items-control-area">
                     <div class="news-items-pagination-container">
-                        <img src="chevron-left.png" alt="Prev" class="pagination-control-button" onclick="pagePrev()">
+                        <img src="assets/chevron-left.png" alt="Prev" class="pagination-control-button"
+                            onclick="pagePrev()">
                         <form action="javascript:void(0);" onsubmit="return gotPageInput()" style="width: 130px;">
                             <label for="pagination-page-input" id="pagination-page-label">Page
-                                <input type="text" id="pagination-page-input" maxlength="2" value="1" onfocusout="updatePageInputValue()"> of 20
+                                <input type="text" id="pagination-page-input" maxlength="2" value="1"
+                                    onfocusout="updatePageInputValue()"> of 20
                                 <input type="submit" style="display:none;">
                             </label>
                         </form>
-                        <img src="chevron-right.png" alt="Next" class="pagination-control-button" onclick="pageNext()">
+                        <img src="assets/chevron-right.png" alt="Next" class="pagination-control-button"
+                            onclick="pageNext()">
                     </div>
                     <a class="news-items-create-button" href="/posts/create">Create</a>
                 </div>
                 <div class="news-items-scroll-area">
                     <% posts.forEach(post=> { %>
                         <div class="news-item">
-                            <img class="news-item-thumbnail unselectable non-draggable" src="/yoquack.jpg" alt="duck">
+                            <img class="news-item-thumbnail unselectable non-draggable" src="assets/yoquack.jpg"
+                                alt="duck">
                             <div class="news-item-content">
                                 <div class="news-item-content-text">
                                     <div class="news-item-title">
@@ -69,10 +73,10 @@
                                 </div>
                             </div>
                             <div class="news-item-view-button unselectable non-draggable"
-                                 onclick="newsItemClicked(`<%= post.body %>`)">
+                                onclick="newsItemClicked(`<%= post.body %>`)">
                             </div>
                         </div>
-                    <% }); %>
+                        <% }); %>
                 </div>
             </div>
             <div class="news-content-container">
