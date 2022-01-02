@@ -17,16 +17,10 @@ const postSchema = new Schema(
 			type: String,
 			required: [true, "Please add a body"],
 		},
-		subbody: {
-			type: String,
-		},
 		author: {
 			type: mongoose.Schema.ObjectId,
 			ref: "User",
 			required: [true, "Please add an author id"],
-		},
-		html: {
-			type: String,
 		},
 	},
 	{
