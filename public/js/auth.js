@@ -6,6 +6,7 @@ var formInputs = document.getElementsByClassName("form-input");
 const loginForm = document.getElementById("login-form");
 const registerForm = document.getElementById("register-form");
 const registerError = document.getElementById("register-form-error");
+const loginError = document.getElementById("login-form-error");
 
 loginForm.addEventListener("submit", submitLoginForm);
 registerForm.addEventListener("submit", submitRegisterForm);
@@ -76,8 +77,28 @@ function loginRedirect() {
 	}, 600);
 }
 
-function submitLoginForm(event) {
+async function submitLoginForm(event) {
 	event.preventDefault();
+	const email = document.getElementById("login-email-input").value;
+	const password = document.getElementById("login-password-input").value;
+	const result = await fetch("/auth/login", {
+		method: "POST",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		body: JSON.stringify({
+			email,
+			password,
+		}),
+	})
+		.then((data) => data.json())
+		.catch((err) => console.log(err));
+	if (result.status === "error") {
+		loginError.innerText = result.error;
+		loginError.hidden = false;
+	} else {
+		window.location.href = "/posts";
+	}
 }
 
 async function submitRegisterForm(event) {
@@ -85,7 +106,6 @@ async function submitRegisterForm(event) {
 	const name = document.getElementById("register-name-input").value;
 	const email = document.getElementById("register-email-input").value;
 	const password = document.getElementById("register-password-input").value;
-	console.log(`${name}, ${email}, ${password}`);
 	const result = await fetch("/auth/register", {
 		method: "POST",
 		headers: {

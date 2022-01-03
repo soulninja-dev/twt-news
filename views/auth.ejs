@@ -29,6 +29,7 @@
                 Password.</label>
             <input type="password" id="login-password-input" class="form-input password" placeholder="Password"
                 onchange="remake(this);" onfocusout="remake(this);">
+            <p class="form-error" id="login-form-error" hidden></p>
             <input type="submit" class="form-submit-button unselectable non-draggable" value="Login">
             <span class="form-redirect-text" onclick="registerRedirect()">New here? Click to Register</span>
         </form>
