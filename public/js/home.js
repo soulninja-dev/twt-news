@@ -1,6 +1,9 @@
 var mobile = window.matchMedia("screen and (max-width: 900px)");
 var currPage = 1;
 
+let firstNews = document.getElementsByClassName("news-item-view-button")[0];
+if (firstNews) firstNews.click();
+
 function collapseNewsItem() {
 	let items =
 		document.getElementsByClassName("news-items-container")[0] || false;
@@ -35,9 +38,11 @@ function newsItemClicked(body) {
 }
 
 function gotPageInput() {
-	let pageInput = +document.getElementById("pagination-page-input").value;
-	if (Number.isInteger(pageInput) && 1 <= pageInput && pageInput <= 20) {
-		currPage = pageInput;
+	let pageInput = document.getElementById("pagination-page-input");
+	let val = +pageInput.value;
+	if (Number.isInteger(val) && 1 <= val && val <= 20) {
+		currPage = val;
+		pageInput.blur();
 		return true;
 	}
 	return false;

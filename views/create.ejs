@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/normalize.css" type="text/css">
     <link rel="stylesheet" href="../css/main.css" type="text/css">
     <link rel="stylesheet" href="../css/create/layout.css" type="text/css">
+    <link rel="stylesheet" href="../css/create/animations.css" type="text/css">
     <link rel="stylesheet" href="../css/create/top-bar.css" type="text/css">
     <link rel="stylesheet" href="../css/create/post-form.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -16,6 +17,12 @@
 </head>
 
 <body>
+    <div class="error-toast-container hidden">
+        <div class="error-toast">
+            <img src="/assets/close.png" class="error-toast-close" onclick="closeErrorToast()">
+            <span style="margin: 20px 20px 60px 20px;">Sorry! An error occurred.</span>
+        </div>
+    </div>
     <div class="top-bar">
         <div class="top-bar-back-container">
             <a class="top-bar-back-link" href="/posts">
@@ -33,15 +40,15 @@
                 <input class="unselectable non-draggable" id="form-submit-button" type="submit" value="Submit">
 
                 <label class="post-form-label" for="title">News Title:</label>
-                <input class="post-form-input" required type="text" id="title" name="title" maxlength="20"
+                <input class="post-form-input input" required type="text" id="title" name="title" maxlength="20"
                     autocomplete="off">
 
                 <label class="post-form-label" for="subtitle">News Subtitle:</label>
-                <input class="post-form-input" required type="text" id="subtitle" name="subtitle" maxlength="50"
+                <input class="post-form-input input" required type="text" id="subtitle" name="subtitle" maxlength="50"
                     autocomplete="off">
 
                 <label class="post-form-label" for="markdown">News Body (markdown format): </label>
-                <textarea class="post-form-textarea" oninput="markdownInput(this.value)" type="text" id="markdown"
+                <textarea class="post-form-textarea input" required oninput="markdownInput(this.value)" type="text" id="markdown"
                     name="html" maxlength="5000"></textarea>
 
                 <label class="post-form-label hidden" id="markdown-preview-label" for="markdown-preview">News

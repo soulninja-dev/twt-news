@@ -20,6 +20,37 @@
     margin: 20px;
 }
 
+.error-toast-container {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10;
+    background-color: #00000066;
+}
+
+.error-toast {
+    max-width: 400px;
+    flex: 1;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: center;
+    background: #c73c47;
+    border-radius: 4px;
+}
+
+.error-toast-close {
+    align-self: flex-end;
+    margin: 10px;
+    cursor: pointer;
+}
+
 @media screen and (max-width: 900px) {
     .content {
         min-width: 300px;
