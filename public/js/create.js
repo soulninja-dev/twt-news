@@ -1,21 +1,7 @@
 var converter = new showdown.Converter();
 const postform = document.getElementById("post-form");
-var formInputs = document.getElementsByClassName("input");
-var errorToastContainer = document.getElementsByClassName("error-toast-container")[0];
-var errorToast = document.getElementsByClassName("error-toast")[0];
 
 postform.addEventListener("submit", submitForm);
-
-for (let i = 0; i < formInputs.length; i++) {
-	formInputs[i].addEventListener('keydown', function (event) {
-		if (event.key === "Enter") {
-			formInputs[i].blur();
-			event.preventDefault();
-			return false;
-		}
-		return true;
-	}, true);
-}
 
 function markdownInput(text) {
 	let preview = document.getElementById("markdown-preview");
@@ -30,18 +16,13 @@ function markdownInput(text) {
 	}
 }
 
-function closeErrorToast() {
-	errorToast.classList.remove("bounce-in-top");
-	errorToastContainer.classList.add("hidden");
-}
-
 async function submitForm(event) {
 	event.preventDefault();
 	const text = document.getElementById("markdown").value;
 	const title = document.getElementById("title").value;
 	const subtitle = document.getElementById("subtitle").value;
 	const body = converter.makeHtml(text);
-	console.log(`title: ${title}\nsubtitle: ${subtitle}\nbody: ${body}`);
+	console.log(`title: ${title}\tsubtitle:${subtitle}\tbody:${body}`);
 	// send post req to /posts/create
 	const res = await fetch("/posts/create", {
 		method: "POST",
@@ -49,11 +30,7 @@ async function submitForm(event) {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({ title, subtitle, body }),
-	}).then((data) => data.json()).catch((e) => {
-		console.log(e);
-		errorToast.classList.add("bounce-in-top");
-		errorToastContainer.classList.remove("hidden");
-	});
+	}).then((data) => data.json());
 
 	if (res.status === "ok") {
 		window.location.href = "/posts";
