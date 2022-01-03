@@ -5,8 +5,8 @@ const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
 const mongoose = require("mongoose");
-const dotenv = require("dotenv").config({ path: "./config/.env" });
-
+const dotenv = require("dotenv");
+dotenv.config({ path: "./config/.env" });
 // route handlers
 const postsRouter = require("./routes/post.route");
 const authRouter = require("./routes/auth.route");
@@ -14,8 +14,8 @@ const authRouter = require("./routes/auth.route");
 const { setUserInfo } = require("./middleware/auth");
 
 // uri of the database
+const PORT = process.env.PORT;
 const dbURI = process.env.DBURI.toString();
-const PORT = process.env.PORT || 3000;
 
 mongoose
 	.connect(dbURI, {
