@@ -25,6 +25,10 @@ body, html {
 
 }
 
+.hidden {
+  display: none !important;
+}
+
 .unselectable {
   user-select: none;
   -moz-user-select: none;

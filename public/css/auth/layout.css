@@ -1,5 +1,5 @@
-.login-container-container,
-.register-container-container {
+.login-container,
+.register-container {
 	position: absolute;
 	left: 0;
 	right: 0;
@@ -12,20 +12,8 @@
 	z-index: 1;
 }
 
-.register-container-container {
-	z-index: 0;
-}
-
-.login-container,
 .register-container {
-	position: relative;
-	flex: 1;
-	max-width: 800px;
-	margin: 20px;
-}
-
-.hidden {
-	display: none !important;
+	z-index: 0;
 }
 
 @media screen and (max-width: 900px) {

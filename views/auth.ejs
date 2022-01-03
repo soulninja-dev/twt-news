@@ -7,49 +7,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="../css/normalize.css" type="text/css">
     <link rel="stylesheet" href="../css/main.css" type="text/css">
-    <link rel="stylesheet" href="../css/animations.css" type="text/css">
+    <link rel="stylesheet" href="../css/auth/animations.css" type="text/css">
     <link rel="stylesheet" href="../css/auth/layout.css" type="text/css">
-    <link rel="stylesheet" href="../css/auth/login.css" type="text/css">
-    <link rel="stylesheet" href="../css/auth/register.css" type="text/css">
+    <link rel="stylesheet" href="../css/auth/form.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet">
 </head>
 
 <body>
-    <div class="login-container-container">
-        <div class="login-container">
-            <div class="login-content">
-                <a href="/" class="login-close-button">
-                    <img src="assets/close.png" alt="close">
-                </a>
-                <span class="login-title">Login</span>
-                <label for="login-email-input" class="hidden">Email</label>
-                <label for="login-password-input" class="hidden">Password</label>
-                <input type="text" id="login-email-input" class="login-input" placeholder="Email">
-                <input type="password" id="login-password-input" class="login-input" placeholder="Password">
-                <div id="login-submit-button">Login</div>
-                <span id="register-button" onclick="registerButtonClicked()">New here? Click to Register</span>
-            </div>
-        </div>
+    <div class="login-container">
+        <form id="login-form" class="form-content" action="javascript:void(0);">
+            <a href="/" class="form-close-button">
+                <img src="assets/close.png" alt="close">
+            </a>
+            <span class="form-title">Login</span>
+            <label for="login-email-input" class="form-input-error-text hidden">Please enter a valid Email.</label>
+            <input type="text" id="login-email-input" class="form-input email" placeholder="Email" onfocusout="remake(this);">
+            <label for="login-password-input" class="form-input-error-text hidden">Please enter a valid Password.</label>
+            <input type="password" id="login-password-input" class="form-input password" placeholder="Password" onchange="remake(this);" onfocusout="remake(this);">
+            <input type="submit" class="form-submit-button unselectable non-draggable" value="Login">
+            <span class="form-redirect-text" onclick="registerRedirect()">New here? Click to Register</span>
+        </form>
     </div>
-    <div class="register-container-container">
-        <div class="register-container">
-            <div class="register-content hidden">
-                <a href="/" class="register-close-button">
-                    <img src="assets/close.png" alt="close">
-                </a>
-                <span class="register-title">Register</span>
-                <label for="register-name-input" class="hidden">Username</label>
-                <label for="register-email-input" class="hidden">Email</label>
-                <label for="register-password-input" class="hidden">Password</label>
-                <input type="text" id="register-name-input" class="register-input" placeholder="Username">
-                <input type="password" id="register-email-input" class="register-input" placeholder="Email">
-                <input type="password" id="register-password-input" class="register-input" placeholder="Password">
-                <div id="register-submit-button">Register</div>
-                <span id="register-button" onclick="loginButtonClicked()">Have an account? Login</span>
-            </div>
-        </div>
+    <div class="register-container">
+        <form id="register-form" class="form-content hidden" action="javascript:void(0);">
+            <a href="/" class="form-close-button">
+                <img src="assets/close.png" alt="close">
+            </a>
+            <span class="form-title">Register</span>
+            <label for="register-name-input" class="form-input-error-text hidden">Please enter a valid Username.</label>
+            <input type="text" id="register-name-input" class="form-input name" placeholder="Username" onfocusout="validateInput(this); remake(this);">
+            <label for="register-email-input" class="form-input-error-text hidden">Please enter a valid Email.</label>
+            <input type="text" id="register-email-input" class="form-input email" placeholder="Email" onfocusout="validateInput(this); remake(this);">
+            <label for="register-password-input" class="form-input-error-text hidden">Please enter a valid Password.</label>
+            <input type="password" id="register-password-input" class="form-input password" placeholder="Password" onfocusout="remake(this);">
+            <input type="submit" class="form-submit-button unselectable non-draggable" value="Register">
+            <span class="form-redirect-text" onclick="loginRedirect()">Have an account? Login</span>
+        </form>
     </div>
     <script src="js/auth.js"></script>
 </body>
