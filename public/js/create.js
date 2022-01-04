@@ -56,14 +56,16 @@ async function submitForm(event) {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({ title, subtitle, body }),
-	}).then(async (data) => await data.json()).catch(() => {
-		showError("Unauthorized.")
-	});
+	})
+		.then(async (data) => await data.json())
+		.catch(() => {
+			showError("Unauthorized.");
+		});
 	if (!res) return;
 	if (res.status === "ok") {
 		window.location.href = "/posts";
 	} else {
-		showError()
+		showError();
 	}
 }
 

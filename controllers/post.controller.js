@@ -23,15 +23,46 @@ const getAuthorId = async (req) => {
 };
 
 const getHomePage = asyncHandler(async (req, res, next) => {
-	const posts = await PostModel.find()
+	let query = PostModel.find()
 		.sort({ createdAt: -1 })
 		.populate({ path: "author", select: "name" });
 
+	// pagination
+	const pagination = {};
+
+	// pagination
+	const page = parseInt(req.query.page, 10) || 1;
+
+	// number of objects per page
+	const limit = parseInt(req.query.limit, 10) || 5;
+	const startIndex = (page - 1) * limit;
+	const endIndex = page * limit;
+	const total = await PostModel.countDocuments();
+
+	// skipping the objects which is in previous pages, and limiting to limit
+	query = query.skip(startIndex).limit(limit);
+
+	if (endIndex < total) {
+		pagination.next = {
+			page: page + 1,
+			limit,
+		};
+	}
+
+	if (startIndex > 0) {
+		pagination.prev = {
+			page: page - 1,
+			limit,
+		};
+	}
+
+	const posts = await query;
 	if (posts.length === 0) {
 		posts[0] = {
 			title: "No posts yet",
 			subtitle: "Why don't you start the party :uganda:",
 			body: "didn't you read the title and subtitle :mhm:",
+			pagination: pagination,
 		};
 	}
 

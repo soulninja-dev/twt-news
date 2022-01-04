@@ -1,24 +1,32 @@
 var mobile = window.matchMedia("screen and (max-width: 1069px)");
 var currPage = 1;
 
-const dateFormat = new Intl.DateTimeFormat(
-	[], {year: 'numeric', month: 'numeric', day: 'numeric'})
-const timeFormat = new Intl.DateTimeFormat(
-	[], {hour: 'numeric', minute: 'numeric'})
+const dateFormat = new Intl.DateTimeFormat([], {
+	year: "numeric",
+	month: "numeric",
+	day: "numeric",
+});
+const timeFormat = new Intl.DateTimeFormat([], {
+	hour: "numeric",
+	minute: "numeric",
+});
 let firstNews = document.getElementsByClassName("news-item-view-button")[0];
-if (firstNews) {firstNews.click(); toggleCollapseNewsItem();}
+if (firstNews) {
+	firstNews.click();
+	toggleCollapseNewsItem();
+}
 
 setTimeout(displayLocalTimes);
 
 function displayLocalTimes() {
 	let today = new Date();
-	let yesterday = new Date(today.getDate()-1)
+	let yesterday = new Date(today.getDate() - 1);
 	let displayDate;
 	let ItemHeaders = document.getElementsByClassName("news-item-header");
 	for (let i = 0; i < ItemHeaders.length; i++) {
 		let date = new Date(ItemHeaders[i].dataset.dateCreated);
 		if (isNaN(date.getTime())) {
-			continue
+			continue;
 		}
 		if (today.toDateString() === date.toDateString()) {
 			displayDate = "Today";
@@ -70,7 +78,7 @@ function newsItemClicked(
 	let newsContentDelete = document.getElementsByClassName(
 		"news-content-delete"
 	)[0];
-	newsContent.innerHTML = body;
+	newsContent.innerText = body;
 	newsContentMeta.innerHTML = `${title} - ${authorName} | ${updatedAt}`;
 	if (authorId === currUserId) {
 		newsContentDelete.innerHTML = "DELETE";
