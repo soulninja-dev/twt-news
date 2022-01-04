@@ -82,7 +82,7 @@ const checkUser = async (req, res, next) => {
 				);
 				console.log(`userid: ${userId}`);
 				console.log(`decoded token-id: ${decodedToken.id}`);
-				if (userId === decodedToken.id) {
+				if (userId == decodedToken.id) {
 					console.log("YES, it's the same user");
 					next();
 				} else {

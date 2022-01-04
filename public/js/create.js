@@ -1,20 +1,27 @@
 var converter = new showdown.Converter();
 const postform = document.getElementById("post-form");
 var formInputs = document.getElementsByClassName("post-form-input");
-var errorToastContainer = document.getElementsByClassName("error-toast-container")[0];
+var errorToastContainer = document.getElementsByClassName(
+	"error-toast-container"
+)[0];
 var errorToast = document.getElementsByClassName("error-toast")[0];
+const createPostError = document.getElementById("create-post-error");
 
 postform.addEventListener("submit", submitForm);
 
 for (let i = 0; i < formInputs.length; i++) {
-	formInputs[i].addEventListener('keydown', function (event) {
-		if (event.key === "Enter") {
-			formInputs[i].blur();
-			event.preventDefault();
-			return false;
-		}
-		return true;
-	}, true);
+	formInputs[i].addEventListener(
+		"keydown",
+		function (event) {
+			if (event.key === "Enter") {
+				formInputs[i].blur();
+				event.preventDefault();
+				return false;
+			}
+			return true;
+		},
+		true
+	);
 }
 
 function markdownInput(text) {
