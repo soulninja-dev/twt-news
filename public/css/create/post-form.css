@@ -5,6 +5,7 @@
     grid-gap: 10px;
     width: 70%;
     min-width: 250px;
+    max-width: 1000px;
 }
 
 #form-submit-button {
@@ -38,14 +39,15 @@
 
 .post-form-textarea {
     resize: none;
-    height: 200px;
+    height: 250px;
 }
 
 #markdown-preview {
+    position: relative;
     background-color: #2d3a4d;
-    padding: 0 10px;
-}
-
-.hidden {
-    display: none;
+    width: 70%;
+    min-width: 250px;
+    max-width: 1000px;
+    margin-top: 10px;
+    height: max-content;
 }

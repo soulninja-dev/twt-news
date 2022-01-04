@@ -61,6 +61,9 @@
                             <img class="news-item-thumbnail unselectable non-draggable" src="assets/yoquack.jpg"
                                 alt="duck">
                             <div class="news-item-content">
+                                <div class="news-item-header">
+                                    <%= post.createdAt.toLocaleDateString() + " | " + post.createdAt.toLocaleTimeString().slice(0, 5); %>
+                                </div>
                                 <div class="news-item-content-text">
                                     <div class="news-item-title">
                                         <%= post.title; %>
@@ -68,22 +71,31 @@
                                     <div class="news-item-subtitle">
                                         <%= post.subtitle; %>
                                     </div>
-                                    <div class="news-item-description">
-                                        <%= post.subbody; %>
-                                    </div>
-                                    <div class="news-item-author">
-                                        written by: <%= post.author.name; %>
-                                    </div>
+                                </div>
+                                <div class="news-item-footer">
+                                    <%= post.author.name; %>
                                 </div>
                             </div>
                             <div class="news-item-view-button unselectable non-draggable"
-                                onclick="newsItemClicked(`<%= post.body; %>`)">
+                                onclick="newsItemClicked(
+                                            `<%= post.title; %>`,
+                                            `<%= post.author.name; %>`,
+                                            `<%= post.author._id; %>`,
+                                            `<%= post.body; %>`,
+                                            `<%= post.createdAt.toLocaleDateString() + " | " + post.createdAt.toLocaleTimeString().slice(0, 5); %>`,
+                                            `<%= user._id; %>`,
+                                            `<%= post._id; %>`
+                                        )">
                             </div>
                         </div>
                         <% }); %>
                 </div>
             </div>
             <div class="news-content-container">
+                <div class="news-content-header">
+                    <div class="news-content-metadata"></div>
+                    <div class="news-content-delete" data-id="" onclick="deletePost(this.dataset.id)"></div>
+                </div>
                 <div class="news-content"></div>
             </div>
         </div>

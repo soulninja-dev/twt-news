@@ -21,9 +21,9 @@
 	},
 	{
 		"_id": "6e6f206f6e652061736b6564",
-		"title": "krymzin readme",
-		"subtitle": "krymzin's github readme",
-		"body": "<h3 align=\"center\">Hi there \uD83D\uDC4B</h3><hr /><p align=\"center\"> I go by krymzin, a 16 y/o developer. <br> <a href=\"https://krymzin.me/gui\" style=\"padding: 20px;\"> Click here to go to my website </a></p><hr /><p align=\"center\"> <img src=\"https://github-readme-stats.vercel.app/api/top-langs/?username=Shiv-Patil&exclude_repo=FactSplore&hide=vue&theme=dracula\"/></p><hr /><ul><li>Knowledge:</li><li><code>Python (Kivy)</code></li><li><code>Javascript (Vuejs)</code></li><li><code>C++</code></li><li><code>SQL (SQLite3, PostgreSQL)</code></li></ul><hr /><ul><li>To-learn:</li><li><code>Rust</code></li><li><code>Python (machine learning)</code></li></ul><p>I am somewhat familiar with <code>C#, GDScript, QBasic</code></p><hr /><p>Some of my projects - <br></p><p align=\"center\"> <a href=\"https://github.com/Fireplank/student-portal\"> <img src=\"https://github-readme-stats.vercel.app/api/pin/?username=Fireplank&repo=Student-Portal&theme=dracula\" width=\"380\"> </a> <a href=\"https://github.com/Shiv-Patil/Account-Safe\"> <img src=\"https://github-readme-stats.vercel.app/api/pin/?username=Shiv-Patil&repo=Account-Safe&theme=dracula\" width=\"380\"> </a> <a href=\"https://github.com/Shiv-Patil/website\"> <img src=\"https://github-readme-stats.vercel.app/api/pin/?username=Shiv-Patil&repo=website&theme=dracula\" width=\"360\"> </a></p><hr /><p><h2 align=\"center\">My Github Stats</h3></p><p align=\"center\"> <br> <img src=\"https://github-readme-stats.vercel.app/api?username=Shiv-Patil&show_icons=true&count_private=true&include_all_commits=true&theme=dracula\" height=180px /> <img src=\"https://github-readme-streak-stats.herokuapp.com/?user=Shiv-Patil&theme=dracula\" height=180px/></p>",
+		"title":"test",
+		"subtitle":"test",
+		"body":"<div style=\"display:flex; align-items:center; justify-content: center; height: 400px;background:orange; z-index:-1\">\n  <div style=\"flex: 0.5; height: 50%; background:skyblue;\"></div>\n</div>",
 		"author": "61cadd5fcb0139f37df105ad",
 		"createdAt": "2021-12-29T17:56:19.138Z",
 		"updatedAt": "2021-12-29T17:56:19.138Z",

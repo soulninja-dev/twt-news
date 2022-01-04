@@ -1,6 +1,6 @@
 var converter = new showdown.Converter();
 const postform = document.getElementById("post-form");
-var formInputs = document.getElementsByClassName("input");
+var formInputs = document.getElementsByClassName("post-form-input");
 var errorToastContainer = document.getElementsByClassName("error-toast-container")[0];
 var errorToast = document.getElementsByClassName("error-toast")[0];
 
@@ -41,7 +41,7 @@ async function submitForm(event) {
 	const title = document.getElementById("title").value;
 	const subtitle = document.getElementById("subtitle").value;
 	const body = converter.makeHtml(text);
-	console.log(`title: ${title}\nsubtitle: ${subtitle}\nbody: ${body}`);
+	console.log(JSON.stringify({ title, subtitle, body }));
 	// send post req to /posts/create
 	const res = await fetch("/posts/create", {
 		method: "POST",
@@ -49,7 +49,7 @@ async function submitForm(event) {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({ title, subtitle, body }),
-	}).then((data) => data.json()).catch((e) => {
+	}).then((data) => console.log(data)).catch((e) => {
 		console.log(e);
 		errorToast.classList.add("bounce-in-top");
 		errorToastContainer.classList.remove("hidden");

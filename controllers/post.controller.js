@@ -26,8 +26,8 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 	const posts = await PostModel.find()
 		.sort({ createdAt: -1 })
 		.populate({ path: "author", select: "name" });
-	console.log(posts);
-	if (posts.length == 0) {
+
+	if (posts.length === 0) {
 		posts[0] = {
 			title: "No posts yet",
 			subtitle: "Why don't you start the party :uganda:",

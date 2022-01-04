@@ -6,6 +6,24 @@
     padding: 10px;
 }
 
+.news-content-header {
+    width: 100%;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.news-content-metadata {
+    font-size: .85em;
+    color: #c0c0c0;
+}
+
+.news-content-delete {
+    font-size: .85em;
+    color: #c73c47;
+    cursor: pointer;
+}
+
 .news-content {
     width: 100%;
 }
