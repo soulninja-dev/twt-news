@@ -62,7 +62,8 @@
                                 alt="duck">
                             <div class="news-item-content">
                                 <div class="news-item-header">
-                                    <%= post.createdAt.toLocaleDateString() + " | " + post.createdAt.toLocaleTimeString().slice(0, 5); %>
+                                    <%= post.createdAt.toLocaleDateString() + " | " +
+                                        post.createdAt.toLocaleTimeString().slice(0, 5); %>
                                 </div>
                                 <div class="news-item-content-text">
                                     <div class="news-item-title">
@@ -76,8 +77,7 @@
                                     <%= post.author.name; %>
                                 </div>
                             </div>
-                            <div class="news-item-view-button unselectable non-draggable"
-                                onclick="newsItemClicked(
+                            <div class="news-item-view-button unselectable non-draggable" onclick="newsItemClicked(
                                             `<%= post.title; %>`,
                                             `<%= post.author.name; %>`,
                                             `<%= post.author._id; %>`,

@@ -18,19 +18,31 @@ function collapseNewsItem() {
 	}
 	if (!mobile.matches) {
 		let news = document.getElementsByClassName("news-content")[0];
-		news.style.opacity = '0';
+		news.style.opacity = "0";
 		setTimeout(() => {
 			news.style.transition = "opacity .4s ease";
-			news.style.opacity = '1';
+			news.style.opacity = "1";
 			setTimeout(() => (news.style.transition = "none"), 400);
 		}, 300);
 	}
 }
 
-function newsItemClicked(title, authorName, authorId, body, updatedAt, currUserId, postId) {
+function newsItemClicked(
+	title,
+	authorName,
+	authorId,
+	body,
+	updatedAt,
+	currUserId,
+	postId
+) {
 	let newsContent = document.getElementsByClassName("news-content")[0];
-	let newsContentMeta = document.getElementsByClassName("news-content-metadata")[0];
-	let newsContentDelete = document.getElementsByClassName("news-content-delete")[0];
+	let newsContentMeta = document.getElementsByClassName(
+		"news-content-metadata"
+	)[0];
+	let newsContentDelete = document.getElementsByClassName(
+		"news-content-delete"
+	)[0];
 	newsContent.innerHTML = body;
 	newsContentMeta.innerHTML = `${title} - ${authorName} | ${updatedAt}`;
 	if (authorId === currUserId) {
@@ -58,15 +70,18 @@ function updatePageInputValue() {
 }
 
 function pageNext() {
-	currPage = Math.min(20, currPage+1);
+	currPage = Math.min(20, currPage + 1);
 	updatePageInputValue();
 }
 
 function pagePrev() {
-	currPage = Math.max(1, currPage-1);
+	currPage = Math.max(1, currPage - 1);
 	updatePageInputValue();
 }
 
-function deletePost(id) {
-
+async function deletePost(id) {
+	const res = await fetch(`/posts/${id}`, {
+		method: "DELETE",
+	}).then((data) => data.json());
+	console.log(res);
 }
