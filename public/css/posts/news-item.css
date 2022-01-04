@@ -71,6 +71,7 @@
     flex-flow: row nowrap;
     justify-content: flex-start;
     height: 140px;
+    padding: 10px;
 }
 
 .news-item:last-child {
@@ -81,16 +82,16 @@
     flex: 3;
     max-width: 150px;
     min-width: 30px;
-    padding: 10px;
     height: auto;
     object-fit: contain;
+    margin-right: 10px;
 }
 
 .news-item-content {
     flex: 7;
     overflow: auto;
     display: flex;
-    align-items: center;
+    flex-flow: column nowrap;
     justify-content: center;
 }
 
@@ -99,13 +100,15 @@
     background: #e35522;
     cursor: pointer;
     padding: 10px;
+    margin-right: -10px;
+    margin-top: -10px;
+    margin-bottom: -10px;
     border-radius: 0 8px 8px 0;
 }
 
 .news-item-content-text {
     margin-top: auto;
     margin-bottom: auto;
-    width: 100%;
 }
 
 .news-item-title {
@@ -117,17 +120,24 @@
 
 .news-item-subtitle {
     font-size: 1.1em;
-    color: #c0c4c9;
+    color: #e0e4e9;
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-.news-item-description {
-    font-size: 1em;
-    color: #c0c4c9;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 5px;
+.news-item-header {
+    font-size: .85em;
+    color: #c0c0c0;
+    margin-bottom: auto;
+    text-align: right;
+    margin-right: 10px;
+}
+
+.news-item-footer {
+    font-size: .85em;
+    color: #c0c0c0;
+    margin-top: auto;
+    margin-right: 10px;
 }
 
 @media screen and (max-width: 900px) {

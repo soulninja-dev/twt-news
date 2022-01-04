@@ -27,11 +27,16 @@ function collapseNewsItem() {
 	}
 }
 
-function newsItemClicked(body) {
-	let newsContent = document.getElementsByClassName(
-		"news-content"
-	)[0];
+function newsItemClicked(title, authorName, authorId, body, updatedAt, currUserId, postId) {
+	let newsContent = document.getElementsByClassName("news-content")[0];
+	let newsContentMeta = document.getElementsByClassName("news-content-metadata")[0];
+	let newsContentDelete = document.getElementsByClassName("news-content-delete")[0];
 	newsContent.innerHTML = body;
+	newsContentMeta.innerHTML = `${title} - ${authorName} | ${updatedAt}`;
+	if (authorId === currUserId) {
+		newsContentDelete.innerHTML = "DELETE";
+		newsContentDelete.dataset.id = postId;
+	} else newsContentDelete.innerHTML = "";
 	if (mobile.matches) {
 		collapseNewsItem();
 	}
@@ -60,4 +65,8 @@ function pageNext() {
 function pagePrev() {
 	currPage = Math.max(1, currPage-1);
 	updatePageInputValue();
+}
+
+function deletePost(id) {
+
 }
