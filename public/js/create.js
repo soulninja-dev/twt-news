@@ -49,16 +49,19 @@ async function submitForm(event) {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({ title, subtitle, body }),
-	}).then((data) => console.log(data)).catch((e) => {
-		console.log(e);
-		errorToast.classList.add("bounce-in-top");
-		errorToastContainer.classList.remove("hidden");
+	}).then(async (data) => await data.json()).catch(() => {
+		showError("Unauthorized.")
 	});
-
+	if (!res) return;
 	if (res.status === "ok") {
 		window.location.href = "/posts";
 	} else {
-		// implement error
-		console.log("errors errors");
+		showError()
 	}
+}
+
+function showError(e = "An error occurred.") {
+	document.getElementById("error-toast-text").innerText = e;
+	errorToast.classList.add("bounce-in-top");
+	errorToastContainer.classList.remove("hidden");
 }

@@ -16,7 +16,7 @@
 	z-index: 0;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1069px) {
 	.content {
 		min-width: 300px;
 	}

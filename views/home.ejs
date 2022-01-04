@@ -19,7 +19,7 @@
 <body>
     <div class="top-bar">
         <div class="top-bar-hamburger-container">
-            <img class="top-bar-hamburger" src="assets/menu.png" alt="menu" onclick="collapseNewsItem()">
+            <img class="top-bar-hamburger" src="assets/menu.png" alt="menu" onclick="toggleCollapseNewsItem()">
         </div>
         <div class="top-bar-text-container">
             <div class="top-bar-text">TWT News</div>
@@ -61,8 +61,7 @@
                             <img class="news-item-thumbnail unselectable non-draggable" src="assets/yoquack.jpg"
                                 alt="duck">
                             <div class="news-item-content">
-                                <div class="news-item-header">
-                                    <%= post.createdAt.toLocaleDateString() + " | " + post.createdAt.toLocaleTimeString().slice(0, 5); %>
+                                <div class="news-item-header" data-date-created="<%= post.createdAt %>">
                                 </div>
                                 <div class="news-item-content-text">
                                     <div class="news-item-title">
@@ -82,7 +81,9 @@
                                             `<%= post.author.name; %>`,
                                             `<%= post.author._id; %>`,
                                             `<%= post.body; %>`,
-                                            `<%= post.createdAt.toLocaleDateString() + " | " + post.createdAt.toLocaleTimeString().slice(0, 5); %>`,
+                                            `<%= post.createdAt.toLocaleDateString() + " | " + post.createdAt.toLocaleTimeString(
+                                        [], { hour: '2-digit', minute: '2-digit', hour12: false }
+                                ); %>`,
                                             `<%= user._id; %>`,
                                             `<%= post._id; %>`
                                         )">

@@ -26,13 +26,13 @@ const postRegister = async (req, res, next) => {
 	if (!name || typeof name != "string") {
 		return res.json({
 			status: "error",
-			error: "Name doesnt pass all criteria",
+			error: "Please enter a valid username",
 		});
 	}
 	if (!password || password.length < 8) {
 		return res.json({
 			status: "error",
-			error: "Password is not secure enough",
+			error: "Password needs to be a minimum of 8 characters.",
 		});
 	}
 
@@ -52,7 +52,7 @@ const postRegister = async (req, res, next) => {
 		if (err.code === 11000) {
 			return res.json({ status: "error", error: "Duplicate value found" });
 		} else {
-			return res.json({ status: "error", error: "Invalid data" });
+			return res.json({ status: "error", error: err.message.split(":")[2].trim() });
 		}
 	}
 };

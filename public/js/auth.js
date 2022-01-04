@@ -5,8 +5,8 @@ var registerRoot = document.getElementsByClassName("register-container")[0];
 var formInputs = document.getElementsByClassName("form-input");
 const loginForm = document.getElementById("login-form");
 const registerForm = document.getElementById("register-form");
-const registerError = document.getElementById("register-form-error");
-const loginError = document.getElementById("login-form-error");
+const registerFormError = document.getElementById("register-form-error");
+const loginFormError = document.getElementById("login-form-error");
 
 loginForm.addEventListener("submit", submitLoginForm);
 registerForm.addEventListener("submit", submitRegisterForm);
@@ -24,21 +24,6 @@ for (let i = 0; i < formInputs.length; i++) {
 		},
 		true
 	);
-}
-
-function validateInput(ele) {
-	if (ele.classList.contains("name")) {
-		if (ele.value.length > 50) {
-			ele.labels[0].innerHTML = "Name can not be more than 50 characters";
-			ele.labels[0].classList.remove("hidden");
-		} else ele.labels[0].classList.add("hidden");
-	} else if (ele.classList.contains("email")) {
-		let emailRegex = new RegExp(/^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$/);
-		if (!emailRegex.test(ele.value)) {
-			ele.labels[0].innerHTML = "Please enter a valid email";
-			ele.labels[0].classList.remove("hidden");
-		} else ele.labels[0].classList.add("hidden");
-	}
 }
 
 function remake(ele) {
@@ -91,12 +76,17 @@ async function submitLoginForm(event) {
 			password,
 		}),
 	})
-		.then((data) => data.json())
-		.catch((err) => console.log(err));
+		.then(async (data) => await data.json())
+		.catch((err) => {
+			console.log(err);
+			loginFormError.innerText = "An error occurred.";
+			loginFormError.classList.remove("hidden");
+		});
 	if (result.status === "error") {
-		loginError.innerText = result.error;
-		loginError.hidden = false;
+		loginFormError.innerText = result.error;
+		loginFormError.classList.remove("hidden");
 	} else {
+		loginFormError.classList.add("hidden");
 		window.location.href = "/posts";
 	}
 }
@@ -117,12 +107,17 @@ async function submitRegisterForm(event) {
 			password,
 		}),
 	})
-		.then((data) => data.json())
-		.catch((err) => console.log(err));
+		.then(async (data) => await data.json())
+		.catch((err) => {
+			console.log(err);
+			registerFormError.innerText = "An error occurred.";
+			registerFormError.classList.remove("hidden");
+		});
 	if (result.status === "error") {
-		registerError.innerText = result.error;
-		registerError.hidden = false;
+		registerFormError.innerText = result.error;
+		registerFormError.classList.remove("hidden");
 	} else {
+		registerFormError.classList.add("hidden");
 		window.location.href = "/posts";
 	}
 }
