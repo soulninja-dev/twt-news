@@ -40,16 +40,15 @@
                 <input class="unselectable non-draggable" id="form-submit-button" type="submit" value="Submit">
 
                 <label class="post-form-label" for="title">News Title:</label>
-                <input class="post-form-input" required type="text" id="title" name="title" maxlength="20"
-                    autocomplete="off">
+                <input class="post-form-input" type="text" id="title" name="title" maxlength="20" autocomplete="off">
 
                 <label class="post-form-label" for="subtitle">News Subtitle:</label>
                 <input class="post-form-input" required type="text" id="subtitle" name="subtitle" maxlength="50"
                     autocomplete="off">
 
                 <label class="post-form-label" for="markdown">News Body (markdown format): </label>
-                <textarea class="post-form-textarea" required oninput="markdownInput(this.value)" type="text" id="markdown"
-                    name="html" maxlength="5000"></textarea>
+                <textarea class="post-form-textarea" required oninput="markdownInput(this.value)" type="text"
+                    id="markdown" name="html" maxlength="5000"></textarea>
 
                 <label class="post-form-label hidden" id="markdown-preview-label" for="markdown-preview">News
                     Preview:</label>

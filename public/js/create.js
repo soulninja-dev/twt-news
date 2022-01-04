@@ -1,20 +1,26 @@
 var converter = new showdown.Converter();
 const postform = document.getElementById("post-form");
 var formInputs = document.getElementsByClassName("post-form-input");
-var errorToastContainer = document.getElementsByClassName("error-toast-container")[0];
+var errorToastContainer = document.getElementsByClassName(
+	"error-toast-container"
+)[0];
 var errorToast = document.getElementsByClassName("error-toast")[0];
 
 postform.addEventListener("submit", submitForm);
 
 for (let i = 0; i < formInputs.length; i++) {
-	formInputs[i].addEventListener('keydown', function (event) {
-		if (event.key === "Enter") {
-			formInputs[i].blur();
-			event.preventDefault();
-			return false;
-		}
-		return true;
-	}, true);
+	formInputs[i].addEventListener(
+		"keydown",
+		function (event) {
+			if (event.key === "Enter") {
+				formInputs[i].blur();
+				event.preventDefault();
+				return false;
+			}
+			return true;
+		},
+		true
+	);
 }
 
 function markdownInput(text) {
@@ -49,16 +55,20 @@ async function submitForm(event) {
 			"Content-Type": "application/json",
 		},
 		body: JSON.stringify({ title, subtitle, body }),
-	}).then((data) => console.log(data)).catch((e) => {
-		console.log(e);
-		errorToast.classList.add("bounce-in-top");
-		errorToastContainer.classList.remove("hidden");
-	});
+	})
+		.then((data) => data.json())
+		.catch((e) => {
+			errorToast.innerHTML = e;
+			errorToast.classList.add("bounce-in-top");
+			errorToastContainer.classList.remove("hidden");
+		});
 
 	if (res.status === "ok") {
 		window.location.href = "/posts";
 	} else {
 		// implement error
-		console.log("errors errors");
+		errorToast.innerHTML = res.error;
+		errorToast.classList.add("bounce-in-top");
+		errorToastContainer.classList.remove("hidden");
 	}
 }
