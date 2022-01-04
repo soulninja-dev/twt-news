@@ -70,7 +70,7 @@
     display: flex;
     flex-flow: row nowrap;
     justify-content: flex-start;
-    height: 140px;
+    height: 160px;
     padding: 10px;
 }
 
@@ -100,9 +100,7 @@
     background: #e35522;
     cursor: pointer;
     padding: 10px;
-    margin-right: -10px;
-    margin-top: -10px;
-    margin-bottom: -10px;
+    margin: -10px -10px -10px 10px;
     border-radius: 0 8px 8px 0;
 }
 
@@ -130,7 +128,6 @@
     color: #c0c0c0;
     margin-bottom: auto;
     text-align: right;
-    margin-right: 10px;
 }
 
 .news-item-footer {
@@ -140,7 +137,7 @@
     margin-right: 10px;
 }
 
-@media screen and (max-width: 900px) {
+@media screen and (max-width: 1069px) {
     .news-items-container {
         margin-right: 0;
         flex: 1;

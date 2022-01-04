@@ -21,12 +21,6 @@
 	margin-bottom: 20px;
 }
 
-.form-input-error-text {
-	margin: 0 20px 5px;
-	color: #e35522;
-	font-size: 0.9em;
-}
-
 .form-input {
 	margin: 0 20px 20px 20px;
 	padding: 10px 5px 10px 50px;
@@ -79,6 +73,7 @@
 }
 
 .form-error {
-	margin-left: 20px;
-	color: red;
+	margin: 0 20px 20px;
+	color: #e35522;
+	font-size: 0.9em;
 }
