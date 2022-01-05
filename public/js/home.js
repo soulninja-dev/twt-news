@@ -126,5 +126,7 @@ async function deletePost(id) {
 	location.reload();
 }
 
-function logoutUser() {
+async function logoutUser() {
+	await fetch("/auth/logout");
+	location.reload();
 }
