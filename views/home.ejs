@@ -37,13 +37,18 @@
             </div>
             <% } else { %>
                 <div class="top-bar-user-control-container">
-                    <div class="top-bar-user-control" onclick="logoutUser()">
+                    <div class="top-bar-user-control">
                         <img src="/assets/account.png" alt="" class="user-control-avatar">
                         <div class="user-control-text">
                             <%- user.name; %>
                         </div>
                     </div>
+                    <div class="logout-container" onclick="logoutUser()">
+                        <a href="" class="top-bar-login-button">Logout</a>
+
+                    </div>
                 </div>
+
                 <% } %>
     </div>
     <div class="content-container">

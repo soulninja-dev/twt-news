@@ -58,6 +58,10 @@
 	margin: 10px;
 }
 
+.logout-container{
+	margin-left:10px;
+}
+
 .top-bar-login-button-container {
 	flex: 1;
 	display: flex;
