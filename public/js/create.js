@@ -33,7 +33,7 @@ function markdownInput(text) {
 	} else {
 		preview.classList.remove("hidden");
 		previewLabel.classList.remove("hidden");
-		preview.innerHTML = converter.makeHtml(text);
+		preview.innerHTML = DOMPurify.sanitize(converter.makeHtml(text));
 	}
 }
 
@@ -47,7 +47,7 @@ async function submitForm(event) {
 	const text = document.getElementById("markdown").value;
 	const title = document.getElementById("title").value;
 	const subtitle = document.getElementById("subtitle").value;
-	const body = converter.makeHtml(text);
+	const body = DOMPurify.sanitize(converter.makeHtml(text));
 	console.log(JSON.stringify({ title, subtitle, body }));
 	// send post req to /posts/create
 	const res = await fetch("/posts/create", {

@@ -2,6 +2,10 @@ const PostModel = require("../models/post.model");
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 const jwt = require("jsonwebtoken");
+const createDOMPurify = require('dompurify');
+const { JSDOM } = require('jsdom');
+const window = new JSDOM('').window;
+const DOMPurify = createDOMPurify(window);
 
 const getAuthorId = async (req) => {
 	const token = req.cookies.jwt;
@@ -74,7 +78,8 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 });
 
 const postCreatePage = asyncHandler(async (req, res, next) => {
-	const { title, subtitle, body } = req.body;
+	let { title, subtitle, body } = req.body;
+	body = DOMPurify.sanitize(body);
 	const result = await getAuthorId(req);
 	console.log(result);
 	let author;

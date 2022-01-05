@@ -77,7 +77,7 @@ function newsItemClicked(
     let newsContentDelete = document.getElementsByClassName(
         "news-content-delete"
     )[0];
-    newsContent.innerText = body;
+    newsContent.innerHTML = body;
     newsContentMeta.innerHTML = `${title} - ${authorName} | ${updatedAt}`;
     if (authorId === currUserId) {
         newsContentDelete.innerHTML = "DELETE";

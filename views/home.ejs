@@ -50,8 +50,8 @@
                             onclick="pagePrev()">
                         <form action="javascript:void(0);" onsubmit="gotPageInput()" style="width: 130px;">
                             <label for="pagination-page-input" id="pagination-page-label">Page
-                                <input type="text" id="pagination-page-input" maxlength="2" value="<%- page %>"
-                                    onfocusout="gotPageInput()"> of <%- max %>;
+                                <input type="text" id="pagination-page-input" maxlength="<%- max.toString().length; %>" value="<%- page %>"
+                                    onfocusout="gotPageInput()"> of <%- max; %>
                                 <input type="submit" style="display:none;">
                             </label>
                         </form>
