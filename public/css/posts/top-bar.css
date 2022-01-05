@@ -33,16 +33,17 @@
 	flex: 1;
 	display: flex;
 	justify-content: flex-end;
-	margin-right: 15px;
-	padding: 10px 15px;
 	align-items: center;
 }
 
 .top-bar-user-control {
+	position: relative;
 	margin-top: auto;
 	margin-bottom: auto;
+	margin-right: 15px;
 	background: #2d3a4d;
 	display: flex;
+	cursor: pointer;
 }
 
 .user-control-avatar {
@@ -51,6 +52,32 @@
 	margin-top: auto;
 	margin-bottom: auto;
 	margin-left: 10px;
+}
+
+.user-control-dropdown {
+	position: absolute;
+	top: 64px;
+	right: 0;
+	z-index: 10;
+	background: #232d3b;
+	display: flex;
+	flex-flow: column nowrap;
+}
+
+#user-control-close-button {
+	align-self: center;
+	height: 20px;
+	width: 20px;
+	cursor: pointer;
+}
+
+#user-control-logout-button {
+	margin: 10px;
+	padding: 10px 15px;
+	background-color: #e35522;
+	border-radius: 8px;
+	color: white;
+	font-size: .9em;
 	cursor: pointer;
 }
 

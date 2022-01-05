@@ -18,11 +18,12 @@
 
 <body>
     <script>
-        var pagination = "<% - JSON.stringify(pagination) %>";
-        var limit = +"<% - limit %>";
-        var total = +"<% - total %>";
-        var page = +"<% - page %>";
-        var maxPages = +"<% - max %>";
+	    var nextPage = "<%- pagination.next ? pagination.next.page : undefined %>";
+        var prevPage = "<%- pagination.prev ? pagination.prev.page : undefined %>";
+        var limit = +"<%- limit %>";
+        var total = +"<%- total %>";
+        var page = +"<%- page %>";
+        var maxPages = +"<%- max %>";
     </script>
     <div class="top-bar">
         <div class="top-bar-hamburger-container">
@@ -37,15 +38,15 @@
             </div>
             <% } else { %>
                 <div class="top-bar-user-control-container">
-                    <div class="top-bar-user-control">
+                    <div class="top-bar-user-control" onclick="showUserControl()">
                         <img src="/assets/account.png" alt="" class="user-control-avatar">
                         <div class="user-control-text">
                             <%- user.name; %>
                         </div>
                     </div>
-                    <div class="logout-container" onclick="logoutUser()">
-                        <a href="" class="top-bar-login-button">Logout</a>
-
+                    <div class="user-control-dropdown hidden">
+                        <img src="/assets/close.png" id="user-control-close-button" onclick="closeUserControl()">
+                        <span id="user-control-logout-button" onclick="logoutUser()">Logout</span>
                     </div>
                 </div>
 
@@ -58,7 +59,7 @@
                     <div class="news-items-pagination-container">
                         <img src="assets/chevron-left.png" alt="Prev" class="pagination-control-button"
                             onclick="pagePrev()">
-                        <form action="javascript:void(0);" onsubmit="gotPageInput()" style="width: 130px;">
+                        <form action="javascript:void(0);" onsubmit="gotPageInput()">
                             <label for="pagination-page-input" id="pagination-page-label">Page
                                 <input type="text" id="pagination-page-input" maxlength="<%- max.toString().length; %>"
                                     value="<%- page %>" onfocusout="gotPageInput()"> of <%- max; %>

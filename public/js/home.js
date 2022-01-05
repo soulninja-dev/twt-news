@@ -1,5 +1,4 @@
 var mobile = window.matchMedia("screen and (max-width: 1069px)");
-
 const dateFormat = new Intl.DateTimeFormat([], {
 	year: "numeric",
 	month: "numeric",
@@ -24,18 +23,20 @@ function displayLocalTimes() {
 	let ItemHeaders = document.getElementsByClassName("news-item-header");
 	for (let i = 0; i < ItemHeaders.length; i++) {
 		let date = new Date(ItemHeaders[i].dataset.dateCreated);
-		if (isNaN(date.getTime())) {
-			continue;
-		}
-		if (today.toDateString() === date.toDateString()) {
-			displayDate = "Today";
-		} else if (yesterday.toDateString() === date.toDateString()) {
-			displayDate = "Yesterday";
-		} else {
-			displayDate = dateFormat.format(date);
-		}
-		ItemHeaders[i].innerHTML = displayDate + " | " + timeFormat.format(date);
+		ItemHeaders[i].innerHTML = getFormattedDateTimeString(date, today, yesterday);
 	}
+}
+
+function getFormattedDateTimeString(date, today, yesterday) {
+	let displayDate;
+	if (today.toDateString() === date.toDateString()) {
+		displayDate = "Today";
+	} else if (yesterday.toDateString() === date.toDateString()) {
+		displayDate = "Yesterday";
+	} else {
+		displayDate = dateFormat.format(date);
+	}
+	return displayDate + " | " + timeFormat.format(date);
 }
 
 function toggleCollapseNewsItem() {
@@ -66,7 +67,7 @@ function newsItemClicked(
 	authorName,
 	authorId,
 	body,
-	updatedAt,
+	createdAt,
 	currUserId,
 	postId
 ) {
@@ -77,8 +78,10 @@ function newsItemClicked(
 	let newsContentDelete = document.getElementsByClassName(
 		"news-content-delete"
 	)[0];
+	let today = new Date();
+	let yesterday = new Date(today.getDate() - 1);
 	newsContent.innerHTML = body;
-	newsContentMeta.innerHTML = `${title} - ${authorName} | ${updatedAt}`;
+	newsContentMeta.innerHTML = `${title} - ${authorName} | ${getFormattedDateTimeString(new Date(createdAt), today, yesterday)}`;
 	if (authorId === currUserId) {
 		newsContentDelete.innerHTML = "DELETE";
 		newsContentDelete.dataset.id = postId;
@@ -103,17 +106,17 @@ function gotPageInput() {
 }
 
 function pageNext() {
-	if (pagination.next) {
+	if (nextPage) {
 		const urlParams = new URLSearchParams(window.location.search);
-		urlParams.set("page", pagination.next.page);
+		urlParams.set("page", nextPage);
 		window.location.search = urlParams;
 	}
 }
 
 function pagePrev() {
-	if (pagination.prev) {
+	if (prevPage) {
 		const urlParams = new URLSearchParams(window.location.search);
-		urlParams.set("page", pagination.prev.page);
+		urlParams.set("page", prevPage);
 		window.location.search = urlParams;
 	}
 }
@@ -124,6 +127,16 @@ async function deletePost(id) {
 	}).then((data) => data.json());
 	console.log(res);
 	location.reload();
+}
+
+function closeUserControl() {
+	let userControl = document.getElementsByClassName("user-control-dropdown")[0];
+	userControl.classList.add("hidden");
+}
+
+function showUserControl() {
+	let userControl = document.getElementsByClassName("user-control-dropdown")[0];
+	userControl.classList.remove("hidden");
 }
 
 async function logoutUser() {
