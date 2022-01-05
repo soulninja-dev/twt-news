@@ -17,6 +17,13 @@
 </head>
 
 <body>
+    <script>
+        var pagination = <%- JSON.stringify(pagination) %>;
+        var limit = <%- limit %>;
+        var total = <%- total %>;
+        var page = <%- page %>;
+        var maxPages = <%- max %>;
+    </script>
     <div class="top-bar">
         <div class="top-bar-hamburger-container">
             <img class="top-bar-hamburger" src="assets/menu.png" alt="menu" onclick="toggleCollapseNewsItem()">
@@ -41,10 +48,10 @@
                     <div class="news-items-pagination-container">
                         <img src="assets/chevron-left.png" alt="Prev" class="pagination-control-button"
                             onclick="pagePrev()">
-                        <form action="javascript:void(0);" onsubmit="return gotPageInput()" style="width: 130px;">
+                        <form action="javascript:void(0);" onsubmit="gotPageInput()" style="width: 130px;">
                             <label for="pagination-page-input" id="pagination-page-label">Page
-                                <input type="text" id="pagination-page-input" maxlength="2" value="1"
-                                    onfocusout="updatePageInputValue()"> of 20
+                                <input type="text" id="pagination-page-input" maxlength="<%- max.toString().length; %>" value="<%- page %>"
+                                    onfocusout="gotPageInput()"> of <%- max; %>
                                 <input type="submit" style="display:none;">
                             </label>
                         </form>
@@ -80,9 +87,7 @@
                                             `<%= post.author.name; %>`,
                                             `<%= post.author._id; %>`,
                                             `<%= post.body; %>`,
-                                            `<%= post.createdAt.toLocaleDateString() + " | " + post.createdAt.toLocaleTimeString(
-                                        [], { hour: '2-digit', minute: '2-digit', hour12: false }
-                                ); %>`,
+                                            `<%= post.createdAt; %>`,
                                             `<%= user._id; %>`,
                                             `<%= post._id; %>`
                                         )">

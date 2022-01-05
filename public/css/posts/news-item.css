@@ -44,7 +44,7 @@
     border-radius: 4px;
     color: white;
     padding: 5px;
-    width: 18px;
+    max-width: 20px;
 }
 
 .news-items-create-button {
