@@ -18,11 +18,11 @@
 
 <body>
     <script>
-        var pagination = <%- JSON.stringify(pagination) %>;
-        var limit = <%- limit %>;
-        var total = <%- total %>;
-        var page = <%- page %>;
-        var maxPages = <%- max %>;
+        var pagination = "<% - JSON.stringify(pagination) %>";
+        var limit = +"<% - limit %>";
+        var total = +"<% - total %>";
+        var page = +"<% - page %>";
+        var maxPages = +"<% - max %>";
     </script>
     <div class="top-bar">
         <div class="top-bar-hamburger-container">
@@ -50,9 +50,9 @@
                             onclick="pagePrev()">
                         <form action="javascript:void(0);" onsubmit="gotPageInput()" style="width: 130px;">
                             <label for="pagination-page-input" id="pagination-page-label">Page
-                                <input type="text" id="pagination-page-input" maxlength="<%- max.toString().length; %>" value="<%- page %>"
-                                    onfocusout="gotPageInput()"> of <%- max; %>
-                                <input type="submit" style="display:none;">
+                                <input type="text" id="pagination-page-input" maxlength="<%- max.toString().length; %>"
+                                    value="<%- page %>" onfocusout="gotPageInput()"> of <%- max; %>
+                                    <input type="submit" style="display:none;">
                             </label>
                         </form>
                         <img src="assets/chevron-right.png" alt="Next" class="pagination-control-button"

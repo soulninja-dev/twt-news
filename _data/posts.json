@@ -21,9 +21,9 @@
 	},
 	{
 		"_id": "6e6f206f6e652061736b6564",
-		"title":"test",
-		"subtitle":"test",
-		"body":"<div style=\"display:flex; align-items:center; justify-content: center; height: 400px;background:orange; z-index:-1\">\n  <div style=\"flex: 0.5; height: 50%; background:skyblue;\"></div>\n</div>",
+		"title": "test",
+		"subtitle": "test",
+		"body": "<div style=\"display:flex; align-items:center; justify-content: center; height: 400px;background:orange; z-index:-1\">\n  <div style=\"flex: 0.5; height: 50%; background:skyblue;\"></div>\n</div>",
 		"author": "61cadd5fcb0139f37df105ad",
 		"createdAt": "2021-12-29T17:56:19.138Z",
 		"updatedAt": "2021-12-29T17:56:19.138Z",

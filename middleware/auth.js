@@ -28,7 +28,6 @@ const protectRoute = (req, res, next) => {
 
 const setUserInfo = async (req, res, next) => {
 	const token = req.cookies.jwt;
-
 	// making sure token exists in the cookies
 	if (token) {
 		// verify the token signature
@@ -43,6 +42,9 @@ const setUserInfo = async (req, res, next) => {
 			else {
 				// find user in db, populate user info in res.locals.user
 				const user = await User.findById(decodedToken.id);
+				if (!user) {
+					res.cookie("jwt", "", { maxAge: 1 });
+				}
 				res.locals.user = user;
 				next();
 			}
@@ -55,9 +57,13 @@ const setUserInfo = async (req, res, next) => {
 	}
 };
 
+// for the delete method
 const checkUser = async (req, res, next) => {
 	const token = req.cookies.jwt;
 	const post = await postModel.findById(req.params.id);
+	if (!post) {
+		return res.redirect("/");
+	}
 	const userId = post.author;
 
 	// making sure token exists in the cookies

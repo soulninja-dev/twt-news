@@ -2,9 +2,9 @@ const PostModel = require("../models/post.model");
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 const jwt = require("jsonwebtoken");
-const createDOMPurify = require('dompurify');
-const { JSDOM } = require('jsdom');
-const window = new JSDOM('').window;
+const createDOMPurify = require("dompurify");
+const { JSDOM } = require("jsdom");
+const window = new JSDOM("").window;
 const DOMPurify = createDOMPurify(window);
 
 const getAuthorId = async (req) => {
@@ -36,9 +36,9 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 
 	// number of objects per page
 	const limit = parseInt(req.query.limit, 10) || 5;
-	const total = await PostModel.countDocuments();
-	const max = Math.ceil(total/limit);
-	const page = Math.min(parseInt(req.query.page, 10) || 1, max);
+	const total = (await PostModel.countDocuments()) || 1;
+	const max = Math.ceil(total / limit);
+	const page = Math.max(Math.min(parseInt(req.query.page, 10) || 1, max), 1);
 
 	const startIndex = (page - 1) * limit;
 	const endIndex = page * limit;
@@ -61,19 +61,6 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 	}
 
 	const posts = await query;
-	if (posts.length === 0) {
-		posts[0] = {
-			title: "No posts yet",
-			subtitle: "Why don't you start the party :uganda:",
-			body: "didn't you read the title and subtitle :mhm:",
-			author: {
-				id: 0,
-				name: ""
-			},
-			pagination: pagination,
-		};
-	}
-
 	res.render("home", { page, posts, pagination, limit, total, max });
 });
 
