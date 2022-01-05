@@ -36,8 +36,13 @@
                 <a class="top-bar-login-button" href="/auth">Login</a>
             </div>
             <% } else { %>
-                <div class="top-bar-name-logged-in">
-                    <%- user.name; %>
+                <div class="top-bar-user-control-container">
+                    <div class="top-bar-user-control" onclick="logoutUser()">
+                        <img src="/assets/account.png" alt="" class="user-control-avatar">
+                        <div class="user-control-text">
+                            <%- user.name; %>
+                        </div>
+                    </div>
                 </div>
                 <% } %>
     </div>
