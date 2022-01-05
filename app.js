@@ -2,6 +2,7 @@
 const express = require("express");
 const app = express();
 const morgan = require("morgan");
+const cors = require("cors");
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
 const mongoose = require("mongoose");
@@ -38,6 +39,7 @@ app.use(express.urlencoded({ extended: true }));
 // access request cookies from req.cookies
 app.use(cookieParser());
 app.use(morgan("dev"));
+app.use(cors());
 
 // auth middleware
 app.get("*", setUserInfo);
