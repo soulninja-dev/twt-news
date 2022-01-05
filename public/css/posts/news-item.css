@@ -34,8 +34,10 @@
 }
 
 #pagination-page-label {
-    line-height: 40px;
     overflow: hidden;
+    line-height: 40px;
+    height: 40px;
+    white-space: nowrap;
 }
 
 #pagination-page-input {
@@ -44,6 +46,7 @@
     border-radius: 4px;
     color: white;
     padding: 5px;
+    text-align: center;
     max-width: 20px;
 }
 
@@ -89,7 +92,6 @@
 
 .news-item-content {
     flex: 7;
-    overflow: auto;
     display: flex;
     flex-flow: column nowrap;
     justify-content: center;
@@ -107,6 +109,7 @@
 .news-item-content-text {
     margin-top: auto;
     margin-bottom: auto;
+    overflow: auto;
 }
 
 .news-item-title {
