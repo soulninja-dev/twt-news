@@ -30,14 +30,14 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 	// pagination
 	const pagination = {};
 
-	// pagination
-	const page = parseInt(req.query.page, 10) || 1;
-
 	// number of objects per page
 	const limit = parseInt(req.query.limit, 10) || 5;
+	const total = await PostModel.countDocuments();
+	const max = Math.ceil(total/limit);
+	const page = Math.min(parseInt(req.query.page, 10) || 1, max);
+
 	const startIndex = (page - 1) * limit;
 	const endIndex = page * limit;
-	const total = await PostModel.countDocuments();
 
 	// skipping the objects which is in previous pages, and limiting to limit
 	query = query.skip(startIndex).limit(limit);
@@ -62,11 +62,15 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 			title: "No posts yet",
 			subtitle: "Why don't you start the party :uganda:",
 			body: "didn't you read the title and subtitle :mhm:",
+			author: {
+				id: 0,
+				name: ""
+			},
 			pagination: pagination,
 		};
 	}
 
-	res.render("home", { posts });
+	res.render("home", { page, posts, pagination, limit, total, max });
 });
 
 const postCreatePage = asyncHandler(async (req, res, next) => {
