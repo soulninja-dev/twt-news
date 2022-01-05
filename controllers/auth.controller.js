@@ -52,7 +52,7 @@ const postRegister = async (req, res, next) => {
 		if (err.code === 11000) {
 			return res.json({ status: "error", error: "Duplicate value found" });
 		} else {
-			return res.json({ status: "error", error: err.message.split(":")[2].trim() });
+			return res.json({ status: "error", error: err.message });
 		}
 	}
 };
