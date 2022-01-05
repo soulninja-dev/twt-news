@@ -29,12 +29,33 @@
 	text-align: center;
 }
 
-.top-bar-name-logged-in {
+.top-bar-user-control-container {
 	flex: 1;
 	display: flex;
 	justify-content: flex-end;
 	margin-right: 15px;
 	padding: 10px 15px;
+	align-items: center;
+}
+
+.top-bar-user-control {
+	margin-top: auto;
+	margin-bottom: auto;
+	background: #2d3a4d;
+	display: flex;
+}
+
+.user-control-avatar {
+	width: 24px;
+	height: 24px;
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-left: 10px;
+	cursor: pointer;
+}
+
+.user-control-text {
+	margin: 10px;
 }
 
 .top-bar-login-button-container {

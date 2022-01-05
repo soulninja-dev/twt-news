@@ -125,3 +125,6 @@ async function deletePost(id) {
 	console.log(res);
 	location.reload();
 }
+
+function logoutUser() {
+}
