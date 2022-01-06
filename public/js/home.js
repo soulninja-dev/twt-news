@@ -17,24 +17,26 @@ if (firstNews) {
 setTimeout(displayLocalTimes);
 
 function displayLocalTimes() {
-	let today = new Date();
-	let yesterday = new Date(today.getDate() - 1);
 	let displayDate;
 	let ItemHeaders = document.getElementsByClassName("news-item-header");
 	for (let i = 0; i < ItemHeaders.length; i++) {
 		let date = new Date(ItemHeaders[i].dataset.dateCreated);
-		ItemHeaders[i].innerHTML = getFormattedDateTimeString(date, today, yesterday);
+		ItemHeaders[i].innerHTML = getFormattedDateTimeString(date);
 	}
 }
 
-function getFormattedDateTimeString(date, today, yesterday) {
+function getFormattedDateTimeString(date) {
 	let displayDate;
-	if (today.toDateString() === date.toDateString()) {
+	let check = new Date();
+	if (check.toDateString() === date.toDateString()) {
 		displayDate = "Today";
-	} else if (yesterday.toDateString() === date.toDateString()) {
-		displayDate = "Yesterday";
 	} else {
-		displayDate = dateFormat.format(date);
+		check.setDate(check.getDate() - 1);
+		if (check.toDateString() === date.toDateString()) {
+			displayDate = "Yesterday";
+		} else {
+			displayDate = dateFormat.format(date);
+		}
 	}
 	return displayDate + " | " + timeFormat.format(date);
 }
@@ -81,7 +83,7 @@ function newsItemClicked(
 	let today = new Date();
 	let yesterday = new Date(today.getDate() - 1);
 	newsContent.innerHTML = body;
-	newsContentMeta.innerHTML = `${title} - ${authorName} | ${getFormattedDateTimeString(new Date(createdAt), today, yesterday)}`;
+	newsContentMeta.innerHTML = `${title} - ${authorName} | ${getFormattedDateTimeString(new Date(createdAt))}`;
 	if (authorId === currUserId) {
 		newsContentDelete.innerHTML = "DELETE";
 		newsContentDelete.dataset.id = postId;
