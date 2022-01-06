@@ -84,9 +84,9 @@
 .news-item-thumbnail {
     flex: 3;
     max-width: 150px;
-    min-width: 30px;
+    max-height: 160px;
+    min-width: 40px;
     height: auto;
-    object-fit: contain;
     margin-right: 10px;
 }
 
@@ -117,6 +117,7 @@
     color: white;
     padding-top: 5px;
     padding-bottom: 5px;
+    word-wrap: break-word;
 }
 
 .news-item-subtitle {
@@ -124,6 +125,7 @@
     color: #e0e4e9;
     padding-top: 5px;
     padding-bottom: 5px;
+    word-wrap: break-word;
 }
 
 .news-item-header {

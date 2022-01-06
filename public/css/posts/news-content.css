@@ -3,12 +3,10 @@
     background-color: #2d3a4d;
     border-radius: 8px;
     overflow: auto;
-    padding: 10px;
 }
 
 .news-content-header {
-    width: 100%;
-    margin-bottom: 10px;
+    margin: 10px;
     display: flex;
     justify-content: space-between;
 }
@@ -25,7 +23,7 @@
 }
 
 .news-content {
-    width: 100%;
+    margin: 0 10px 10px 10px;
 }
 
 @media screen and (max-width: 1069px) {
