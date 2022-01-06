@@ -4,9 +4,8 @@ A fun website to post news about what's poppin' in the tech with tim [discord](h
 
 # Project roadmap
 
-- ship MVP [currently here]
-- integrate google auth
-- pagination
+- ~~ship MVP~~
+- spam control and better auth [currently here]
 - user roles for moderation
 
 # Contributing
