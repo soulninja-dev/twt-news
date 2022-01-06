@@ -2,6 +2,8 @@ const PostModel = require("../models/post.model");
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 const jwt = require("jsonwebtoken");
+const axios = require('axios');
+const captchaSecret = process.env.CAPTCHA_SECRETKEY;
 const createDOMPurify = require("dompurify");
 const { JSDOM } = require("jsdom");
 const window = new JSDOM("").window;
@@ -65,7 +67,29 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 });
 
 const postCreatePage = asyncHandler(async (req, res, next) => {
-	let { title, subtitle, body } = req.body;
+	let { title, subtitle, body, captchaToken } = req.body;
+	// captcha
+	const recaptchaBody = {
+		secret: captchaSecret,
+		response: captchaToken,
+	};
+	const captchaResult = await axios.post("https://www.google.com/recaptcha/api/siteverify",
+			new URLSearchParams(Object.entries(recaptchaBody)).toString())
+		.then(async (res) => await res.data)
+		.catch((err) => {
+			console.log(err);
+			return res.json({
+				status: "error",
+				error: "Captcha verification failed.",
+			});
+		});
+	if (!captchaResult.success || captchaResult.score < .69) {
+		return res.json({
+			status: "error",
+			error: "Captcha verification failed.",
+		});
+	}
+
 	body = DOMPurify.sanitize(body);
 	const result = await getAuthorId(req);
 	console.log(result);

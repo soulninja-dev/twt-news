@@ -44,10 +44,17 @@ function closeErrorToast() {
 
 async function submitForm(event) {
 	event.preventDefault();
+	grecaptcha.ready(function() {
+		grecaptcha.execute('6LdluvUdAAAAAHzi7lV8XpHwj5gpv1yfDEjeYVoL', { action: 'submit' }).then(createPost);
+	});
+}
+
+async function createPost(token) {
 	const text = document.getElementById("markdown").value;
 	const title = document.getElementById("title").value;
 	const subtitle = document.getElementById("subtitle").value;
 	const body = DOMPurify.sanitize(converter.makeHtml(text));
+	const captchaToken = token;
 	console.log(JSON.stringify({ title, subtitle, body }));
 	// send post req to /posts/create
 	const res = await fetch("/posts/create", {
@@ -55,7 +62,7 @@ async function submitForm(event) {
 		headers: {
 			"Content-Type": "application/json",
 		},
-		body: JSON.stringify({ title, subtitle, body }),
+		body: JSON.stringify({ title, subtitle, body, captchaToken }),
 	})
 		.then(async (data) => await data.json())
 		.catch(() => {
@@ -65,7 +72,7 @@ async function submitForm(event) {
 	if (res.status === "ok") {
 		window.location.href = "/posts";
 	} else {
-		showError();
+		showError(res.error);
 	}
 }
 
