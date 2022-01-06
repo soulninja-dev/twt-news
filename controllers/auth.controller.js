@@ -8,6 +8,7 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user.model");
+const axios = require('axios');
 
 // 5 days
 const expireTime = 5 * 24 * 60 * 60;
@@ -16,13 +17,36 @@ const createToken = (id, name) => {
 		expiresIn: expireTime,
 	});
 };
+const captchaSecret = process.env.CAPTCHA_SECRETKEY;
 
 const getAuth = (req, res, next) => {
 	res.render("auth");
 };
 
 const postRegister = async (req, res, next) => {
-	const { name, email, password } = req.body;
+	const { name, email, password, captchaToken } = req.body;
+	// captcha v3
+	const recaptchaBody = {
+		secret: captchaSecret,
+		response: captchaToken,
+	};
+	const result = await axios.post("https://www.google.com/recaptcha/api/siteverify",
+			new URLSearchParams(Object.entries(recaptchaBody)).toString())
+		.then(async (res) => await res.data)
+		.catch((err) => {
+			console.log(err);
+			return res.json({
+				status: "error",
+				error: "Captcha verification failed.",
+			});
+		});
+	if (!result.success || result.score < .69) {
+		return res.json({
+			status: "error",
+			error: "Captcha verification failed.",
+		});
+	}
+
 	if (!name || typeof name != "string") {
 		return res.json({
 			status: "error",

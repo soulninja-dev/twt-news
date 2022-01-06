@@ -93,9 +93,16 @@ async function submitLoginForm(event) {
 
 async function submitRegisterForm(event) {
 	event.preventDefault();
+	grecaptcha.ready(function() {
+		grecaptcha.execute('6LdluvUdAAAAAHzi7lV8XpHwj5gpv1yfDEjeYVoL', { action: 'submit' }).then(registerUser);
+	});
+}
+
+async function registerUser(token) {
 	const name = document.getElementById("register-name-input").value;
 	const email = document.getElementById("register-email-input").value;
 	const password = document.getElementById("register-password-input").value;
+	const captchaToken = token;
 	const result = await fetch("/auth/register", {
 		method: "POST",
 		headers: {
@@ -105,6 +112,7 @@ async function submitRegisterForm(event) {
 			name,
 			email,
 			password,
+			captchaToken
 		}),
 	})
 		.then(async (data) => await data.json())
