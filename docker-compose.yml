@@ -12,3 +12,8 @@ services:
       - 3000:3000
   mongo:
     image: mongo
+    restart: unless-stopped
+    volumes:
+      - mongo-data:/data/db
+volumes:
+  mongo-data:
