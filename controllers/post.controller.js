@@ -8,6 +8,12 @@ const createDOMPurify = require("dompurify");
 const { JSDOM } = require("jsdom");
 const window = new JSDOM("").window;
 const DOMPurify = createDOMPurify(window);
+const urlRegExp = new RegExp(/url\(.*?\)/ig)
+DOMPurify.addHook('afterSanitizeAttributes', function (node) {
+	if (node.hasAttribute('style')) {
+		node.setAttribute('style', node.getAttribute('style').replaceAll(urlRegExp, ''));
+	}
+});
 
 const getAuthorId = async (req) => {
 	const token = req.cookies.jwt;
@@ -90,7 +96,12 @@ const postCreatePage = asyncHandler(async (req, res, next) => {
 		});
 	}
 
-	body = DOMPurify.sanitize(body);
+	body = DOMPurify.sanitize(body, {
+		USE_PROFILES: { html: true },
+		FORBID_TAGS: ['style'],
+		FORBID_ATTR: ['class', 'id', 'src', 'href', 'action'],
+		ALLOW_DATA_ATTR: false
+	});
 	const result = await getAuthorId(req);
 	console.log(result);
 	let author;

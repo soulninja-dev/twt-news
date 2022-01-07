@@ -5,7 +5,12 @@ var errorToastContainer = document.getElementsByClassName(
 	"error-toast-container"
 )[0];
 var errorToast = document.getElementsByClassName("error-toast")[0];
-const createPostError = document.getElementById("create-post-error");
+const urlRegExp = new RegExp(/url\(.*?\)/ig)
+DOMPurify.addHook('afterSanitizeAttributes', function (node) {
+	if (node.hasAttribute('style')) {
+		node.setAttribute('style', node.getAttribute('style').replaceAll(urlRegExp, ''));
+	}
+});
 
 postform.addEventListener("submit", submitForm);
 
@@ -33,7 +38,12 @@ function markdownInput(text) {
 	} else {
 		preview.classList.remove("hidden");
 		previewLabel.classList.remove("hidden");
-		preview.innerHTML = DOMPurify.sanitize(converter.makeHtml(text));
+		preview.innerHTML = DOMPurify.sanitize(converter.makeHtml(text), {
+			USE_PROFILES: { html: true },
+			FORBID_TAGS: ['style'],
+			FORBID_ATTR: ['class', 'id', 'src', 'href', 'action'],
+			ALLOW_DATA_ATTR: false
+		});
 	}
 }
 
@@ -53,7 +63,12 @@ async function createPost(token) {
 	const text = document.getElementById("markdown").value;
 	const title = document.getElementById("title").value;
 	const subtitle = document.getElementById("subtitle").value;
-	const body = DOMPurify.sanitize(converter.makeHtml(text));
+	const body = DOMPurify.sanitize(converter.makeHtml(text), {
+		USE_PROFILES: { html: true },
+		FORBID_TAGS: ['style'],
+		FORBID_ATTR: ['class', 'id', 'src', 'href', 'action'],
+		ALLOW_DATA_ATTR: false
+	});
 	const captchaToken = token;
 	console.log(JSON.stringify({ title, subtitle, body }));
 	// send post req to /posts/create
