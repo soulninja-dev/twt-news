@@ -32,7 +32,12 @@ function markdownInput(text) {
 	} else {
 		preview.classList.remove("hidden");
 		previewLabel.classList.remove("hidden");
-		preview.innerHTML = DOMPurify.sanitize(converter.makeHtml(text));
+		preview.innerHTML = DOMPurify.sanitize(converter.makeHtml(text), {
+			USE_PROFILES: { html: true },
+			FORBID_TAGS: ['style'],
+			FORBID_ATTR: ['class', 'id', 'src', 'href', 'action'],
+			ALLOW_DATA_ATTR: false
+		});
 	}
 }
 
