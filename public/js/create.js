@@ -5,7 +5,6 @@ var errorToastContainer = document.getElementsByClassName(
 	"error-toast-container"
 )[0];
 var errorToast = document.getElementsByClassName("error-toast")[0];
-const createPostError = document.getElementById("create-post-error");
 
 postform.addEventListener("submit", submitForm);
 
@@ -53,7 +52,12 @@ async function createPost(token) {
 	const text = document.getElementById("markdown").value;
 	const title = document.getElementById("title").value;
 	const subtitle = document.getElementById("subtitle").value;
-	const body = DOMPurify.sanitize(converter.makeHtml(text));
+	const body = DOMPurify.sanitize(converter.makeHtml(text), {
+		USE_PROFILES: { html: true },
+		FORBID_TAGS: ['style'],
+		FORBID_ATTR: ['class', 'id', 'src', 'href', 'action'],
+		ALLOW_DATA_ATTR: false
+	});
 	const captchaToken = token;
 	console.log(JSON.stringify({ title, subtitle, body }));
 	// send post req to /posts/create
