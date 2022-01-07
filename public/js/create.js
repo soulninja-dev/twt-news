@@ -5,6 +5,12 @@ var errorToastContainer = document.getElementsByClassName(
 	"error-toast-container"
 )[0];
 var errorToast = document.getElementsByClassName("error-toast")[0];
+const urlRegExp = new RegExp(/url\(.*?\)/ig)
+DOMPurify.addHook('afterSanitizeAttributes', function (node) {
+	if (node.hasAttribute('style')) {
+		node.setAttribute('style', node.getAttribute('style').replaceAll(urlRegExp, ''));
+	}
+});
 
 postform.addEventListener("submit", submitForm);
 

@@ -8,7 +8,7 @@ const createDOMPurify = require("dompurify");
 const { JSDOM } = require("jsdom");
 const window = new JSDOM("").window;
 const DOMPurify = createDOMPurify(window);
-const urlRegExp = new RegExp(/url\("([^"\\]*(\\.[^"\\]*)*)"\)|url\('([^'\\]*(\\.[^'\\]*)*)'\)/g)
+const urlRegExp = new RegExp(/url\(.*?\)/ig)
 DOMPurify.addHook('afterSanitizeAttributes', function (node) {
 	if (node.hasAttribute('style')) {
 		node.setAttribute('style', node.getAttribute('style').replaceAll(urlRegExp, ''));
