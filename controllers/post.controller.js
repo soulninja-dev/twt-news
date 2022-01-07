@@ -98,8 +98,8 @@ const postCreatePage = asyncHandler(async (req, res, next) => {
 
 	body = DOMPurify.sanitize(body, {
 		USE_PROFILES: { html: true },
-		FORBID_TAGS: ['style'],
-		FORBID_ATTR: ['class', 'id', 'src', 'href', 'action'],
+		FORBID_TAGS: ['style', 'img', 'video', 'a'],
+		FORBID_ATTR: ['class', 'id', 'src', 'href', 'action', 'srcset'],
 		ALLOW_DATA_ATTR: false
 	});
 	const result = await getAuthorId(req);
