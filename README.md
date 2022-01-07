@@ -19,6 +19,9 @@ All communication happens in the discord server, so ping `@SoulNinja#1717` there
 - [SoulNinja](https://github.com/SoulNinja-dev)
 - [KrYmZiN](https://github.com/Shiv-Patil)
 
+### Bug hunter:
+- [FirePlank](https://github.com/FirePlank)
+
 ---
 
 ## Running locally
