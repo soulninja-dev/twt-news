@@ -68,8 +68,9 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 
 const linksRegExp = new RegExp(/(["'`])(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-_.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\1/gim);
 const cssLinksRegExp = new RegExp(/(\()(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-_.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\)/gim);
+const escapedLineBreakRegExp = new RegExp(/\\(\r\n|\n|\r)/gm)
 function sanitizeLinks(input) {
-	return input.replaceAll(linksRegExp, "''").replaceAll(cssLinksRegExp, "()");
+	return input.replaceAll(escapedLineBreakRegExp, "").replaceAll(linksRegExp, "''").replaceAll(cssLinksRegExp, "()");
 }
 
 const postCreatePage = asyncHandler(async (req, res, next) => {

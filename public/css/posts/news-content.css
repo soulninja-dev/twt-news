@@ -26,6 +26,13 @@
 
 .news-content {
     margin: 0 10px 10px 10px;
+    overflow: auto;
+}
+
+.news-content-iframe {
+    width: 100%;
+    border: none;
+    overflow: hidden;
 }
 
 @media screen and (max-width: 1069px) {
