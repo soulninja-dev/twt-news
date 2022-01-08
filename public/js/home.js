@@ -83,7 +83,9 @@ function newsItemClicked(
 	let today = new Date();
 	let yesterday = new Date(today.getDate() - 1);
 	newsContent.innerHTML = body;
-	newsContentMeta.innerText = `${title} - ${authorName} | ${getFormattedDateTimeString(new Date(createdAt))}`;
+	newsContentMeta.innerText = `${title} - ${authorName} | ${getFormattedDateTimeString(
+		new Date(createdAt)
+	)}`;
 	if (authorId === currUserId) {
 		newsContentDelete.innerText = "DELETE";
 		newsContentDelete.dataset.id = postId;
@@ -127,7 +129,6 @@ async function deletePost(id) {
 	const res = await fetch(`/posts/${id}`, {
 		method: "DELETE",
 	}).then((data) => data.json());
-	console.log(res);
 	location.reload();
 }
 
