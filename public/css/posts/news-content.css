@@ -3,6 +3,8 @@
     background-color: #2d3a4d;
     border-radius: 8px;
     overflow: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .news-content-header {
