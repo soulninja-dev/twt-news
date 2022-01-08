@@ -8,12 +8,6 @@ const createDOMPurify = require("dompurify");
 const { JSDOM } = require("jsdom");
 const window = new JSDOM("").window;
 const DOMPurify = createDOMPurify(window);
-const urlRegExp = new RegExp(/url\(.*?\)/ig)
-DOMPurify.addHook('afterSanitizeAttributes', function (node) {
-	if (node.hasAttribute('style')) {
-		node.setAttribute('style', node.getAttribute('style').replaceAll(urlRegExp, ''));
-	}
-});
 
 const getAuthorId = async (req) => {
 	const token = req.cookies.jwt;
@@ -72,6 +66,11 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 	res.render("home", { page, posts, pagination, limit, total, max });
 });
 
+const linksRegExp = new RegExp(/(["'])(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\1/gim)
+function sanitizeLinks(input) {
+	return input.replaceAll(linksRegExp, "''");
+}
+
 const postCreatePage = asyncHandler(async (req, res, next) => {
 	let { title, subtitle, body, captchaToken } = req.body;
 	// captcha
@@ -98,10 +97,11 @@ const postCreatePage = asyncHandler(async (req, res, next) => {
 
 	body = DOMPurify.sanitize(body, {
 		USE_PROFILES: { html: true },
-		FORBID_TAGS: ['style', 'img', 'video', 'a'],
-		FORBID_ATTR: ['class', 'id', 'src', 'href', 'action', 'srcset'],
+		FORBID_TAGS: ['style'],
+		FORBID_ATTR: ['class', 'id', 'action', 'srcset'],
 		ALLOW_DATA_ATTR: false
 	});
+	body = sanitizeLinks(body);
 	const result = await getAuthorId(req);
 	console.log(result);
 	let author;

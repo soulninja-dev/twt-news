@@ -21,7 +21,7 @@ function displayLocalTimes() {
 	let ItemHeaders = document.getElementsByClassName("news-item-header");
 	for (let i = 0; i < ItemHeaders.length; i++) {
 		let date = new Date(ItemHeaders[i].dataset.dateCreated);
-		ItemHeaders[i].innerHTML = getFormattedDateTimeString(date);
+		ItemHeaders[i].innerTextgi = getFormattedDateTimeString(date);
 	}
 }
 
@@ -83,11 +83,11 @@ function newsItemClicked(
 	let today = new Date();
 	let yesterday = new Date(today.getDate() - 1);
 	newsContent.innerHTML = body;
-	newsContentMeta.innerHTML = `${title} - ${authorName} | ${getFormattedDateTimeString(new Date(createdAt))}`;
+	newsContentMeta.innerText = `${title} - ${authorName} | ${getFormattedDateTimeString(new Date(createdAt))}`;
 	if (authorId === currUserId) {
-		newsContentDelete.innerHTML = "DELETE";
+		newsContentDelete.innerText = "DELETE";
 		newsContentDelete.dataset.id = postId;
-	} else newsContentDelete.innerHTML = "";
+	} else newsContentDelete.innerText = "";
 	if (mobile.matches) {
 		toggleCollapseNewsItem();
 	}
