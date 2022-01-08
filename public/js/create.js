@@ -5,10 +5,16 @@ var errorToastContainer = document.getElementsByClassName(
 	"error-toast-container"
 )[0];
 var errorToast = document.getElementsByClassName("error-toast")[0];
-const linksRegExp = new RegExp(/(["'])(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\1/gim);
-const cssLinksRegExp = new RegExp(/(url\()(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\)/gim);
+const linksRegExp = new RegExp(
+	/(["'])(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\1/gim
+);
+const cssLinksRegExp = new RegExp(
+	/(url\()(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\)/gim
+);
 function sanitizeLinks(input) {
-	return input.replaceAll(linksRegExp, "''").replaceAll(cssLinksRegExp, "url()");
+	return input
+		.replaceAll(linksRegExp, "''")
+		.replaceAll(cssLinksRegExp, "url()");
 }
 
 postform.addEventListener("submit", submitForm);
@@ -37,12 +43,14 @@ function markdownInput(text) {
 	} else {
 		preview.classList.remove("hidden");
 		previewLabel.classList.remove("hidden");
-		preview.innerHTML = sanitizeLinks(DOMPurify.sanitize(converter.makeHtml(text), {
-			USE_PROFILES: { html: true },
-			FORBID_TAGS: ['style'],
-			FORBID_ATTR: ['class', 'id', 'action', 'srcset'],
-			ALLOW_DATA_ATTR: false
-		}));
+		preview.innerHTML = sanitizeLinks(
+			DOMPurify.sanitize(converter.makeHtml(text), {
+				USE_PROFILES: { html: true },
+				FORBID_TAGS: ["style"],
+				FORBID_ATTR: ["class", "id", "action", "srcset"],
+				ALLOW_DATA_ATTR: false,
+			})
+		);
 	}
 }
 
@@ -53,8 +61,10 @@ function closeErrorToast() {
 
 async function submitForm(event) {
 	event.preventDefault();
-	grecaptcha.ready(function() {
-		grecaptcha.execute('6LdluvUdAAAAAHzi7lV8XpHwj5gpv1yfDEjeYVoL', { action: 'submit' }).then(createPost);
+	grecaptcha.ready(function () {
+		grecaptcha
+			.execute("6LdluvUdAAAAAHzi7lV8XpHwj5gpv1yfDEjeYVoL", { action: "submit" })
+			.then(createPost);
 	});
 }
 
@@ -62,12 +72,14 @@ async function createPost(token) {
 	const text = document.getElementById("markdown").value;
 	const title = document.getElementById("title").value;
 	const subtitle = document.getElementById("subtitle").value;
-	const body = sanitizeLinks(DOMPurify.sanitize(converter.makeHtml(text), {
-		USE_PROFILES: { html: true },
-		FORBID_TAGS: ['style'],
-		FORBID_ATTR: ['class', 'id', 'action', 'srcset'],
-		ALLOW_DATA_ATTR: false
-	}));
+	const body = sanitizeLinks(
+		DOMPurify.sanitize(converter.makeHtml(text), {
+			USE_PROFILES: { html: true },
+			FORBID_TAGS: ["style"],
+			FORBID_ATTR: ["class", "id", "action", "srcset"],
+			ALLOW_DATA_ATTR: false,
+		})
+	);
 	const captchaToken = token;
 	console.log(JSON.stringify({ title, subtitle, body }));
 	// send post req to /posts/create
@@ -86,6 +98,7 @@ async function createPost(token) {
 	if (res.status === "ok") {
 		window.location.href = "/posts";
 	} else {
+		console.log(res.error);
 		showError(res.error);
 	}
 }

@@ -2,7 +2,7 @@ const PostModel = require("../models/post.model");
 const asyncHandler = require("../middleware/async");
 const ErrorResponse = require("../utils/errorResponse");
 const jwt = require("jsonwebtoken");
-const axios = require('axios');
+const axios = require("axios");
 const captchaSecret = process.env.CAPTCHA_SECRETKEY;
 const createDOMPurify = require("dompurify");
 const { JSDOM } = require("jsdom");
@@ -66,10 +66,17 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 	res.render("home", { page, posts, pagination, limit, total, max });
 });
 
-const linksRegExp = new RegExp(/(["'])(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\1/gim)
-const cssLinksRegExp = new RegExp(/(url\()(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\)/gim);
+const linksRegExp = new RegExp(
+	/(["'])(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\1/gim
+);
+const cssLinksRegExp = new RegExp(
+	/(url\()(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\)/gim
+);
 function sanitizeLinks(input) {
-	return input.replaceAll(linksRegExp, "''").replaceAll(cssLinksRegExp, "url()");
+	console.log(typeof input);
+	return input
+		.replaceAll(linksRegExp, "''")
+		.replaceAll(cssLinksRegExp, "url()");
 }
 
 const postCreatePage = asyncHandler(async (req, res, next) => {
@@ -79,8 +86,11 @@ const postCreatePage = asyncHandler(async (req, res, next) => {
 		secret: captchaSecret,
 		response: captchaToken,
 	};
-	const captchaResult = await axios.post("https://www.google.com/recaptcha/api/siteverify",
-			new URLSearchParams(Object.entries(recaptchaBody)).toString())
+	const captchaResult = await axios
+		.post(
+			"https://www.google.com/recaptcha/api/siteverify",
+			new URLSearchParams(Object.entries(recaptchaBody)).toString()
+		)
 		.then(async (res) => await res.data)
 		.catch((err) => {
 			console.log(err);
@@ -89,20 +99,22 @@ const postCreatePage = asyncHandler(async (req, res, next) => {
 				error: "Captcha verification failed.",
 			});
 		});
-	if (!captchaResult.success || captchaResult.score < .69) {
+	if (!captchaResult.success || captchaResult.score < 0.69) {
 		return res.json({
 			status: "error",
 			error: "Captcha verification failed.",
 		});
 	}
 
-	body = DOMPurify.sanitize(body, {
-		USE_PROFILES: { html: true },
-		FORBID_TAGS: ['style'],
-		FORBID_ATTR: ['class', 'id', 'action', 'srcset'],
-		ALLOW_DATA_ATTR: false
-	});
-	body = sanitizeLinks(body);
+	body = sanitizeLinks(
+		DOMPurify.sanitize(body, {
+			USE_PROFILES: { html: true },
+			FORBID_TAGS: ["style"],
+			FORBID_ATTR: ["class", "id", "action", "srcset"],
+			ALLOW_DATA_ATTR: false,
+		})
+	);
+	console.log(body);
 	const result = await getAuthorId(req);
 	console.log(result);
 	let author;
