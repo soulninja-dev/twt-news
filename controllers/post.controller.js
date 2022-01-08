@@ -74,9 +74,11 @@ const cssLinksRegExp = new RegExp(
 );
 function sanitizeLinks(input) {
 	console.log(typeof input);
-	return input
+	input = input
 		.replaceAll(linksRegExp, "''")
 		.replaceAll(cssLinksRegExp, "url()");
+	console.log(input);
+	return input;
 }
 
 const postCreatePage = asyncHandler(async (req, res, next) => {
