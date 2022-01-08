@@ -52,10 +52,9 @@
                 <textarea class="post-form-textarea" required oninput="markdownInput(this.value)" type="text"
                     id="markdown" name="html" maxlength="5000"></textarea>
 
-                <label class="post-form-label hidden" id="markdown-preview-label" for="markdown-preview">News
-                    Preview:</label>
+                <label class="post-form-label hidden" id="markdown-preview-label" for="markdown-preview">News Preview:</label>
             </form>
-            <div id="markdown-preview"></div>
+            <iframe id="markdown-preview" class="hidden"></iframe>
         </div>
     </div>
     <script type="text/javascript" src="/js/purify.min.js"></script>

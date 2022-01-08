@@ -66,7 +66,7 @@ const getHomePage = asyncHandler(async (req, res, next) => {
 	res.render("home", { page, posts, pagination, limit, total, max });
 });
 
-const linksRegExp = new RegExp(/(["'])(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-_.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\1/gim);
+const linksRegExp = new RegExp(/(["'`])(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-_.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\1/gim);
 const cssLinksRegExp = new RegExp(/(\()(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-_.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\)/gim);
 function sanitizeLinks(input) {
 	return input.replaceAll(linksRegExp, "''").replaceAll(cssLinksRegExp, "()");
@@ -99,10 +99,10 @@ const postCreatePage = asyncHandler(async (req, res, next) => {
 		});
 	}
 
-	body = sanitizeLinks(
+	body = "<head><style>* {margin: 0; font-family: Inter,sans-serif; color: #fff;}</style></head>" + sanitizeLinks(
 		DOMPurify.sanitize(body, {
 			USE_PROFILES: { html: true },
-			FORBID_TAGS: ["style"],
+			FORBID_TAGS: ["style", "head"],
 			FORBID_ATTR: ["class", "id", "action", "srcset"],
 			ALLOW_DATA_ATTR: false,
 		})

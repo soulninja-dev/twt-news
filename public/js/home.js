@@ -1,4 +1,11 @@
 var mobile = window.matchMedia("screen and (max-width: 1069px)");
+var newsContent = document.getElementsByClassName("news-content")[0];
+newsContent.onload = function() {
+	const iframeDoc = newsContent.contentWindow.document;
+	const height = Math.max( iframeDoc.body.scrollHeight, iframeDoc.body.offsetHeight,
+		iframeDoc.documentElement.clientHeight, iframeDoc.documentElement.scrollHeight, iframeDoc.documentElement.offsetHeight );
+	newsContent.style.height = height + 'px';
+}
 const dateFormat = new Intl.DateTimeFormat([], {
 	year: "numeric",
 	month: "numeric",
@@ -72,7 +79,6 @@ function newsItemClicked(
 	currUserId,
 	postId
 ) {
-	let newsContent = document.getElementsByClassName("news-content")[0];
 	let newsContentMeta = document.getElementsByClassName(
 		"news-content-metadata"
 	)[0];
@@ -81,7 +87,7 @@ function newsItemClicked(
 	)[0];
 	let today = new Date();
 	let yesterday = new Date(today.getDate() - 1);
-	newsContent.innerHTML = body;
+	newsContent.srcdoc = body;
 	newsContentMeta.innerText = `${title} - ${authorName} | ${getFormattedDateTimeString(
 		new Date(createdAt)
 	)}`;
