@@ -22,6 +22,7 @@ mongoose
 	.connect(dbURI, {
 		useNewUrlParser: true,
 		useUnifiedTopology: true,
+		autoIndex: true,
 	})
 	.then((result) => {
 		app.listen(PORT);

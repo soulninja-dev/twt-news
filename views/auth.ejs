@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="../css/auth/form.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Montserrat&family=Open+Sans&display=swap"
+        rel="stylesheet">
     <script src="https://www.google.com/recaptcha/api.js?render=6LdluvUdAAAAAHzi7lV8XpHwj5gpv1yfDEjeYVoL"></script>
 </head>
 
@@ -41,14 +42,14 @@
             </a>
             <span class="form-title">Register</span>
             <label for="register-name-input" class="hidden"></label>
-            <input type="text" id="register-name-input" class="form-input name" placeholder="Username"
+            <input type="text" id="register-name-input" class="form-input name" placeholder="Username" maxlength="25"
                 onfocusout="remake(this);">
             <label for="register-email-input" class="hidden"></label>
             <input type="text" id="register-email-input" class="form-input email" placeholder="Email"
                 onfocusout="remake(this);">
             <label for="register-password-input" class="hidden"></label>
             <input type="password" id="register-password-input" class="form-input password" placeholder="Password"
-                onfocusout="remake(this);">
+                minlength="8" onfocusout="remake(this);">
             <span id="register-form-error" class="form-error hidden"></span>
             <input type="submit" class="form-submit-button unselectable non-draggable" value="Register">
             <span class="form-redirect-text" onclick="loginRedirect()">Have an account? Login</span>

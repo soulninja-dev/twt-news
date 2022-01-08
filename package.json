@@ -3,6 +3,9 @@
 	"version": "1.0.0",
 	"description": "A news website for TWT server",
 	"main": "app.js",
+	"engines": {
+		"node": "15.x"
+	},
 	"scripts": {
 		"dev": "nodemon app.js",
 		"start": "node app.js"

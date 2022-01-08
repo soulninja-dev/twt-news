@@ -3,7 +3,6 @@ const ErrorResponse = require("../utils/errorResponse");
 const errorHandler = (err, req, res, next) => {
 	let error = { ...err };
 	error.message = err.message;
-
 	// mongoose bad object id
 	if (err.name === "CastError") {
 		const message = `Resource not found with the id ${err.value}`;
@@ -23,7 +22,7 @@ const errorHandler = (err, req, res, next) => {
 	}
 
 	res.status(error.statusCode || 500).json({
-		success: false,
+		status: "error",
 		error: error.message || "Server Error",
 	});
 };
