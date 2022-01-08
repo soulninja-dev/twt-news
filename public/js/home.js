@@ -17,11 +17,10 @@ if (firstNews) {
 setTimeout(displayLocalTimes);
 
 function displayLocalTimes() {
-	let displayDate;
 	let ItemHeaders = document.getElementsByClassName("news-item-header");
 	for (let i = 0; i < ItemHeaders.length; i++) {
 		let date = new Date(ItemHeaders[i].dataset.dateCreated);
-		ItemHeaders[i].innerTextgi = getFormattedDateTimeString(date);
+		ItemHeaders[i].innerText = getFormattedDateTimeString(date);
 	}
 }
 
