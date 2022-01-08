@@ -5,12 +5,10 @@ var errorToastContainer = document.getElementsByClassName(
 	"error-toast-container"
 )[0];
 var errorToast = document.getElementsByClassName("error-toast")[0];
-const urlRegExp = new RegExp(/url\(.*?\)/ig)
-DOMPurify.addHook('afterSanitizeAttributes', function (node) {
-	if (node.hasAttribute('style')) {
-		node.setAttribute('style', node.getAttribute('style').replaceAll(urlRegExp, ''));
-	}
-});
+const linksRegExp = new RegExp(/(["'])(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\1/gim)
+function sanitizeLinks(input) {
+	return input.replaceAll(linksRegExp, "''");
+}
 
 postform.addEventListener("submit", submitForm);
 
@@ -38,12 +36,12 @@ function markdownInput(text) {
 	} else {
 		preview.classList.remove("hidden");
 		previewLabel.classList.remove("hidden");
-		preview.innerHTML = DOMPurify.sanitize(converter.makeHtml(text), {
+		preview.innerHTML = sanitizeLinks(DOMPurify.sanitize(converter.makeHtml(text), {
 			USE_PROFILES: { html: true },
 			FORBID_TAGS: ['style'],
-			FORBID_ATTR: ['class', 'id', 'src', 'href', 'action'],
+			FORBID_ATTR: ['class', 'id', 'action', 'srcset'],
 			ALLOW_DATA_ATTR: false
-		});
+		}));
 	}
 }
 
@@ -63,12 +61,12 @@ async function createPost(token) {
 	const text = document.getElementById("markdown").value;
 	const title = document.getElementById("title").value;
 	const subtitle = document.getElementById("subtitle").value;
-	const body = DOMPurify.sanitize(converter.makeHtml(text), {
+	const body = sanitizeLinks(DOMPurify.sanitize(converter.makeHtml(text), {
 		USE_PROFILES: { html: true },
-		FORBID_TAGS: ['style', 'img', 'video', 'a'],
-		FORBID_ATTR: ['class', 'id', 'src', 'href', 'action', 'srcset'],
+		FORBID_TAGS: ['style'],
+		FORBID_ATTR: ['class', 'id', 'action', 'srcset'],
 		ALLOW_DATA_ATTR: false
-	});
+	}));
 	const captchaToken = token;
 	console.log(JSON.stringify({ title, subtitle, body }));
 	// send post req to /posts/create
