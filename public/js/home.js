@@ -1,5 +1,5 @@
 var mobile = window.matchMedia("screen and (max-width: 1069px)");
-var newsContent = document.getElementsByClassName("news-content")[0];
+var newsContent = document.getElementsByClassName("news-content-iframe")[0];
 newsContent.onload = function() {
 	const iframeDoc = newsContent.contentWindow.document;
 	const height = Math.max( iframeDoc.body.scrollHeight, iframeDoc.body.offsetHeight,
