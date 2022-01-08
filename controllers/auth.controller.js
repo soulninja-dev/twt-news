@@ -1,14 +1,9 @@
-/*
-	getAuth,
-	postLogin,
-	postRegister,
-	logOut
-*/
-
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const UserModel = require("../models/user.model");
-const axios = require('axios');
+const axios = require("axios");
+const asyncHandler = require("../middleware/async");
+const ErrorResponse = require("../utils/errorResponse");
 
 // 5 days
 const expireTime = 5 * 24 * 60 * 60;
@@ -23,66 +18,52 @@ const getAuth = (req, res, next) => {
 	res.render("auth");
 };
 
-const postRegister = async (req, res, next) => {
+const postRegister = asyncHandler(async (req, res, next) => {
 	const { name, email, password, captchaToken } = req.body;
+	if (password.length < 8) {
+		return next(
+			new ErrorResponse("Password must be atleast 8 characters long", 400)
+		);
+	}
 	// captcha v3
 	const recaptchaBody = {
 		secret: captchaSecret,
 		response: captchaToken,
 	};
-	const result = await axios.post("https://www.google.com/recaptcha/api/siteverify",
-			new URLSearchParams(Object.entries(recaptchaBody)).toString())
+	const result = await axios
+		.post(
+			"https://www.google.com/recaptcha/api/siteverify",
+			new URLSearchParams(Object.entries(recaptchaBody)).toString()
+		)
 		.then(async (res) => await res.data)
 		.catch((err) => {
 			console.log(err);
-			return res.json({
+			return res.status(400).json({
 				status: "error",
 				error: "Captcha verification failed.",
 			});
 		});
-	if (!result.success || result.score < .69) {
-		return res.json({
+	if (!result.success || result.score < 0.69) {
+		return res.status(400).json({
 			status: "error",
 			error: "Captcha verification failed.",
 		});
 	}
 
-	if (!name || typeof name != "string") {
-		return res.json({
-			status: "error",
-			error: "Please enter a valid username",
-		});
-	}
-	if (!password || password.length < 8) {
-		return res.json({
-			status: "error",
-			error: "Password needs to be a minimum of 8 characters.",
-		});
-	}
-
 	const hashedPassword = await bcrypt.hash(password, 10);
 
-	try {
-		const user = await UserModel.create({
-			name: name,
-			email: email,
-			password: hashedPassword,
-		});
+	const user = await UserModel.create({
+		name: name,
+		email: email,
+		password: hashedPassword,
+	});
 
-		const token = createToken(user.id, name);
-		res.cookie("jwt", token, { httpOnly: true, maxAge: expireTime * 1000 });
-		return res.json({ status: "ok" });
-	} catch (err) {
-		console.log(err);
-		if (err.code === 11000) {
-			return res.json({ status: "error", error: "Duplicate value found" });
-		} else {
-			return res.json({ status: "error", error: err.message });
-		}
-	}
-};
+	const token = createToken(user.id, name);
+	res.cookie("jwt", token, { httpOnly: true, maxAge: expireTime * 1000 });
+	return res.json({ status: "ok" });
+});
 
-const postLogin = async (req, res) => {
+const postLogin = asyncHandler(async (req, res) => {
 	const { email, password } = req.body;
 
 	try {
@@ -100,7 +81,7 @@ const postLogin = async (req, res) => {
 				.json({ status: "error", error: "Incorrect email / password" });
 		}
 	}
-};
+});
 
 const logOut = async (req, res, next) => {
 	res.cookie("jwt", "", { maxAge: 1 });
