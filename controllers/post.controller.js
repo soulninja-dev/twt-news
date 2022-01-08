@@ -73,12 +73,9 @@ const cssLinksRegExp = new RegExp(
 	/(url\()(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\)/gim
 );
 function sanitizeLinks(input) {
-	console.log(typeof input);
-	input = input
+	return input
 		.replaceAll(linksRegExp, "''")
 		.replaceAll(cssLinksRegExp, "url()");
-	console.log(input);
-	return input;
 }
 
 const postCreatePage = asyncHandler(async (req, res, next) => {
@@ -116,9 +113,7 @@ const postCreatePage = asyncHandler(async (req, res, next) => {
 			ALLOW_DATA_ATTR: false,
 		})
 	);
-	console.log(body);
 	const result = await getAuthorId(req);
-	console.log(result);
 	let author;
 	if (result.status === "ok") {
 		author = result.data;

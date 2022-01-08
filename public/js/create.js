@@ -81,7 +81,6 @@ async function createPost(token) {
 		})
 	);
 	const captchaToken = token;
-	console.log(JSON.stringify({ title, subtitle, body }));
 	// send post req to /posts/create
 	const res = await fetch("/posts/create", {
 		method: "POST",
@@ -98,7 +97,6 @@ async function createPost(token) {
 	if (res.status === "ok") {
 		window.location.href = "/posts";
 	} else {
-		console.log(res.error);
 		showError(res.error);
 	}
 }
