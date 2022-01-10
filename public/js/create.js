@@ -3,10 +3,7 @@ const postform = document.getElementById("post-form");
 var formInputs = document.getElementsByClassName("post-form-input");
 var preview = document.getElementById("markdown-preview");
 preview.onload = function() {
-	const iframeDoc = preview.contentWindow.document;
-	const height = Math.max( iframeDoc.body.scrollHeight, iframeDoc.body.offsetHeight,
-		iframeDoc.documentElement.clientHeight, iframeDoc.documentElement.scrollHeight, iframeDoc.documentElement.offsetHeight );
-	preview.style.height = height + 'px';
+	preview.style.height = preview.contentWindow.document.body.scrollHeight + 'px';
 }
 var previewLabel = document.getElementById("markdown-preview-label");
 var errorToastContainer = document.getElementsByClassName(
@@ -14,10 +11,10 @@ var errorToastContainer = document.getElementsByClassName(
 )[0];
 var errorToast = document.getElementsByClassName("error-toast")[0];
 
-const linksRegExp = new RegExp(/(["'`])(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-_.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\1/gim);
+const linksRegExp = new RegExp(/(["'])(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-_.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\1/gim);
 const cssLinksRegExp = new RegExp(/(\()(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)))([a-z0-9]+([\-_.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\)/gim);
 function sanitizeLinks(input) {
-	return input.replaceAll('\\', "").replaceAll(linksRegExp, "''").replaceAll(cssLinksRegExp, "()");
+	return input.replaceAll(linksRegExp, "''").replaceAll(cssLinksRegExp, "()");
 }
 
 postform.addEventListener("submit", submitForm);
@@ -37,6 +34,17 @@ for (let i = 0; i < formInputs.length; i++) {
 	);
 }
 
+function parseMarkdownInput(text) {
+	return "<head><style>html,* {padding: 0; margin: 0; font-family: Inter,sans-serif; color: #fff;}</style></head>" + sanitizeLinks(
+		DOMPurify.sanitize(converter.makeHtml(text.replaceAll('`', "").replaceAll('\\', "")), {
+			USE_PROFILES: { html: true },
+			FORBID_TAGS: ["style", "head"],
+			FORBID_ATTR: ["class", "id", "action", "srcset"],
+			ALLOW_DATA_ATTR: false,
+		})
+	);
+}
+
 function markdownInput(text) {
 	if (text.length === 0) {
 		preview.classList.add("hidden");
@@ -44,14 +52,7 @@ function markdownInput(text) {
 	} else {
 		preview.classList.remove("hidden");
 		previewLabel.classList.remove("hidden");
-		preview.srcdoc = "<head><style>* {margin: 0; font-family: Inter,sans-serif; color: #fff;}</style></head>" + sanitizeLinks(
-			DOMPurify.sanitize(converter.makeHtml(text), {
-				USE_PROFILES: { html: true },
-				FORBID_TAGS: ["style", "head"],
-				FORBID_ATTR: ["class", "id", "action", "srcset"],
-				ALLOW_DATA_ATTR: false,
-			})
-		);
+		preview.srcdoc = parseMarkdownInput(text);
 	}
 }
 
@@ -73,14 +74,7 @@ async function createPost(token) {
 	const text = document.getElementById("markdown").value;
 	const title = document.getElementById("title").value;
 	const subtitle = document.getElementById("subtitle").value;
-	const body = "<head><style>* {margin: 0; font-family: Inter,sans-serif; color: #fff;}</style></head>" + sanitizeLinks(
-		DOMPurify.sanitize(converter.makeHtml(text), {
-			USE_PROFILES: { html: true },
-			FORBID_TAGS: ["style", "head"],
-			FORBID_ATTR: ["class", "id", "action", "srcset"],
-			ALLOW_DATA_ATTR: false,
-		})
-	);
+	const body = parseMarkdownInput(text);
 	const captchaToken = token;
 	// send post req to /posts/create
 	const res = await fetch("/posts/create", {

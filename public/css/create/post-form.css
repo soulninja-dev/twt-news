@@ -40,6 +40,7 @@
 .post-form-textarea {
     resize: none;
     height: 250px;
+    font-family: "JetBrains Mono", Inter, SansSerif, serif ;
 }
 
 #markdown-preview {
@@ -50,5 +51,5 @@
     max-width: 1000px;
     margin-top: 10px;
     border: none;
-    overflow: hidden;
+    padding: 0;
 }
