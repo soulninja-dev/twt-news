@@ -1,10 +1,7 @@
 var mobile = window.matchMedia("screen and (max-width: 1069px)");
 var newsContent = document.getElementsByClassName("news-content-iframe")[0];
 newsContent.onload = function() {
-	const iframeDoc = newsContent.contentWindow.document;
-	const height = Math.max( iframeDoc.body.scrollHeight, iframeDoc.body.offsetHeight,
-		iframeDoc.documentElement.clientHeight, iframeDoc.documentElement.scrollHeight, iframeDoc.documentElement.offsetHeight );
-	newsContent.style.height = height + 'px';
+	newsContent.style.height = newsContent.contentWindow.document.body.scrollHeight + 'px';
 }
 const dateFormat = new Intl.DateTimeFormat([], {
 	year: "numeric",
