@@ -16,6 +16,7 @@ const userSchema = new Schema({
 			"Please enter a valid email",
 		],
 		unique: [true, "Email id already registered"],
+		required: [true, "Please add an email"],
 	},
 	password: {
 		type: String,
