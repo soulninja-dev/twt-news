@@ -2,17 +2,22 @@ var converter = new showdown.Converter();
 const postform = document.getElementById("post-form");
 var formInputs = document.getElementsByClassName("post-form-input");
 var preview = document.getElementById("markdown-preview");
-preview.onload = function() {
-	preview.style.height = preview.contentWindow.document.body.scrollHeight + 'px';
-}
+preview.onload = function () {
+	preview.style.height =
+		preview.contentWindow.document.body.scrollHeight + "px";
+};
 var previewLabel = document.getElementById("markdown-preview-label");
 var errorToastContainer = document.getElementsByClassName(
 	"error-toast-container"
 )[0];
 var errorToast = document.getElementsByClassName("error-toast")[0];
 
-const linksRegExp = new RegExp(/(["'])(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)|(cdn\.discordapp\.com)))([a-z0-9]+([\-_.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\1/gim);
-const cssLinksRegExp = new RegExp(/(\()(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)|(cdn\.discordapp\.com)))([a-z0-9]+([\-_.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\)/gim);
+const linksRegExp = new RegExp(
+	/(["'])(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)|(cdn.discordapp\.com)|(media.discordapp\.net)))([a-z0-9]+([\-_.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\1/gim
+);
+const cssLinksRegExp = new RegExp(
+	/(\()(?:(?=(\\?))\2((http:\/\/www\.|https:\/\/www\.|http:\/\/|https:\/\/)?(?!(www.)*((github\.com)|(cdn.discordapp\.com)|(media.discordapp\.net)))([a-z0-9]+([\-_.][a-z0-9]+)*\.[a-z]{2,5})(:[0-9]{1,5})?(\/.*)?))*?\)/gim
+);
 function sanitizeLinks(input) {
 	return input.replaceAll(linksRegExp, "''").replaceAll(cssLinksRegExp, "()");
 }
@@ -35,13 +40,19 @@ for (let i = 0; i < formInputs.length; i++) {
 }
 
 function parseMarkdownInput(text) {
-	return "<head><style>html,* {padding: 0; margin: 0; font-family: Inter,sans-serif; color: #fff;}</style></head>" + sanitizeLinks(
-		DOMPurify.sanitize(converter.makeHtml(text.replaceAll('`', "").replaceAll('\\', "")), {
-			USE_PROFILES: { html: true },
-			FORBID_TAGS: ["style", "head"],
-			FORBID_ATTR: ["class", "id", "action", "srcset"],
-			ALLOW_DATA_ATTR: false,
-		})
+	return (
+		"<head><style>html,* {padding: 0; margin: 0; font-family: Inter,sans-serif; color: #fff;}</style></head>" +
+		sanitizeLinks(
+			DOMPurify.sanitize(
+				converter.makeHtml(text.replaceAll("`", "").replaceAll("\\", "")),
+				{
+					USE_PROFILES: { html: true },
+					FORBID_TAGS: ["style", "head"],
+					FORBID_ATTR: ["class", "id", "action", "srcset"],
+					ALLOW_DATA_ATTR: false,
+				}
+			)
+		)
 	);
 }
 
