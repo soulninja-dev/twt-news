@@ -10,7 +10,7 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./config/.env" });
 // route handlers
 const postsRouter = require("./routes/post.route");
-const authRouter = require("./routes/auth.route");
+const oauthRouter = require("./routes/oauth.route");
 
 const { setUserInfo } = require("./middleware/auth");
 
@@ -51,7 +51,7 @@ app.get("/", (req, res) => {
 
 // route handlers for posts and auth
 app.use("/posts", postsRouter);
-app.use("/auth", authRouter);
+app.use("/auth", oauthRouter);
 app.use(errorHandler);
 
 app.use((req, res) => {
