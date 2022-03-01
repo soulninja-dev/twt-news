@@ -1,8 +1,9 @@
 var mobile = window.matchMedia("screen and (max-width: 1069px)");
 var newsContent = document.getElementsByClassName("news-content-iframe")[0];
-newsContent.onload = function() {
-	newsContent.style.height = newsContent.contentWindow.document.body.scrollHeight + 'px';
-}
+newsContent.onload = function () {
+	newsContent.style.height =
+		newsContent.contentWindow.document.body.scrollHeight + "px";
+};
 const dateFormat = new Intl.DateTimeFormat([], {
 	year: "numeric",
 	month: "numeric",
@@ -70,7 +71,6 @@ function toggleCollapseNewsItem() {
 function newsItemClicked(
 	title,
 	authorName,
-	authorId,
 	body,
 	createdAt,
 	currUserId,
@@ -88,7 +88,7 @@ function newsItemClicked(
 	newsContentMeta.innerText = `${title} - ${authorName} | ${getFormattedDateTimeString(
 		new Date(createdAt)
 	)}`;
-	if (authorId === currUserId) {
+	if (authorName === currUserId) {
 		newsContentDelete.innerText = "DELETE";
 		newsContentDelete.dataset.id = postId;
 	} else newsContentDelete.innerText = "";

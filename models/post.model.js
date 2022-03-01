@@ -21,9 +21,8 @@ const postSchema = new Schema(
 			maxlength: [5000, "Body can't be more than 5000 characters"],
 		},
 		author: {
-			type: mongoose.Schema.ObjectId,
-			ref: "User",
-			required: [true, "Please add an author id"],
+			type: String,
+			required: [true, "Please add author info"],
 		},
 	},
 	{

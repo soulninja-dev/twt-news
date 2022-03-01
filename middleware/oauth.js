@@ -32,6 +32,7 @@ const checkUser = async (req, res, next) => {
 // next() if yes, or else reject request
 const setUserInfo = async (req, res, next) => {
 	if (!req.cookies.jwt) {
+		res.locals.user = null;
 		return next();
 	}
 	const accessToken = getJWTAccessToken(req, res);
@@ -44,12 +45,14 @@ const setUserInfo = async (req, res, next) => {
 			return res.status(402).json({ status: "error", error: err });
 		});
 
-	console.log("result: ", result);
 	if (result.username) {
 		// set res.user to result so that we can access user data in controllers
-		res.locals.user = result;
+		const user = result.username + "#" + result.discriminator;
+		console.log(user);
+		res.locals.user = user;
 		return next();
 	}
+	res.locals.user = null;
 	next();
 };
 
