@@ -55,5 +55,5 @@ app.use("/auth", oauthRouter);
 app.use(errorHandler);
 
 app.use((req, res) => {
-	res.status(404).send("404, not found");
+	res.status(404).send("Find a route which exists noob");
 });
