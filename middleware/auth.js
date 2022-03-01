@@ -35,7 +35,6 @@ const setUserInfo = async (req, res, next) => {
 			// wrong jwt token ( token has been tampered with or has expired )
 			// set user to null
 			if (err) {
-				res.locals.user = { name: "anonymous" };
 				next();
 			}
 			// best case scenario ( everything is perfect )
@@ -52,7 +51,6 @@ const setUserInfo = async (req, res, next) => {
 	}
 	// if token does not exist in cookies, then set user to null, and go to next middleware
 	else {
-		res.locals.user = { name: "anonymous" };
 		next();
 	}
 };

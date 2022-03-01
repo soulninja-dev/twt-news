@@ -2,10 +2,11 @@ const fetch = require("node-fetch");
 const { stringify } = require("query-string");
 const jwt = require("jsonwebtoken");
 const asyncHandler = require("../middleware/async");
+const getJWTAccessToken = require("../utils/getAccessToken");
 
 // constants
 const redirect_url =
-	"https://discord.com/api/oauth2/authorize?client_id=930166100904255549&redirect_uri=http%3A%2F%2Flocalhost%3A1717%2Fauth%2Fdiscord&response_type=code&scope=identify";
+	"https://discord.com/api/oauth2/authorize?client_id=930166100904255549&redirect_uri=http%3A%2F%2Flocalhost%3A3000%2Fauth%2Fdiscord&response_type=code&scope=identify";
 const userinfo_url = "https://discord.com/api/users/@me";
 
 const expireTime = 50 * 24 * 60 * 60;
@@ -48,18 +49,6 @@ const getAccessToken = async (req, res) => {
 	);
 
 	return OAuthResult.access_token;
-};
-
-// get the access_token stored in the cookie in the request
-const getJWTAccessToken = (req, res) => {
-	let accessToken = "";
-	jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decodedToken) => {
-		if (err) {
-			return res.status(500).json({ status: "error", error: err });
-		}
-		accessToken = decodedToken.access_token;
-	});
-	return accessToken;
 };
 
 // GET /auth/discord

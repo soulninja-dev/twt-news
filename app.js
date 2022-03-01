@@ -12,7 +12,7 @@ dotenv.config({ path: "./config/.env" });
 const postsRouter = require("./routes/post.route");
 const oauthRouter = require("./routes/oauth.route");
 
-const { setUserInfo } = require("./middleware/auth");
+const { setUserInfo } = require("./middleware/oauth");
 
 // uri of the database
 const PORT = process.env.PORT;
@@ -43,7 +43,7 @@ app.use(morgan("dev"));
 app.use(cors());
 
 // auth middleware
-app.get("*", setUserInfo);
+app.use(setUserInfo);
 
 app.get("/", (req, res) => {
 	res.redirect("/posts");
