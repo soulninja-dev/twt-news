@@ -5,7 +5,7 @@ A fun website to post news about what's poppin' in the tech with tim [discord](h
 # Project roadmap
 
 - ~~ship MVP~~
-- spam control and better auth [currently here]
+- ~~spam control and better auth~~
 - user roles for moderation
 
 # Contributing
