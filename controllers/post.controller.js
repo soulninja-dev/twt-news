@@ -9,29 +9,8 @@ const { JSDOM } = require("jsdom");
 const window = new JSDOM("").window;
 const DOMPurify = createDOMPurify(window);
 
-const getAuthorId = async (req) => {
-	const token = req.cookies.jwt;
-	return jwt.verify(
-		token,
-		process.env.JWT_SECRET,
-		async (err, decodedToken) => {
-			if (err) {
-				const result = { status: "invalid", data: "Invalid token" };
-				return result;
-			}
-			// best case scenario ( everything is perfect )
-			else {
-				const result = { status: "ok", data: decodedToken.id };
-				return result;
-			}
-		}
-	);
-};
-
 const getHomePage = asyncHandler(async (req, res, next) => {
-	let query = PostModel.find()
-		.sort({ createdAt: -1 })
-		.populate({ path: "author", select: "name" });
+	let query = PostModel.find().sort({ createdAt: -1 });
 
 	// pagination
 	const pagination = {};
@@ -118,13 +97,11 @@ const postCreatePage = asyncHandler(async (req, res, next) => {
 	}
 
 	body = parseMarkdownInput(body);
-	const result = await getAuthorId(req);
-	let author;
-	if (result.status === "ok") {
-		author = result.data;
-	} else {
-		return next(new ErrorResponse(result.data, 401));
-	}
+
+	// set author
+	const author = res.locals.user;
+
+	console.log(author);
 
 	await PostModel.create({
 		title,

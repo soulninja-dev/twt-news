@@ -24,7 +24,9 @@
 		"jsdom": "^19.0.0",
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^6.1.2",
-		"morgan": "^1.10.0"
+		"morgan": "^1.10.0",
+		"node-fetch": "^2.6.7",
+		"query-string": "^7.1.1"
 	},
 	"devDependencies": {
 		"nodemon": "^2.0.15"

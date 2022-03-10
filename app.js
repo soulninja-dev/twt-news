@@ -10,9 +10,9 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./config/.env" });
 // route handlers
 const postsRouter = require("./routes/post.route");
-const authRouter = require("./routes/auth.route");
+const oauthRouter = require("./routes/oauth.route");
 
-const { setUserInfo } = require("./middleware/auth");
+const { setUserInfo } = require("./middleware/oauth");
 
 // uri of the database
 const PORT = process.env.PORT;
@@ -43,7 +43,7 @@ app.use(morgan("dev"));
 app.use(cors());
 
 // auth middleware
-app.get("*", setUserInfo);
+app.use(setUserInfo);
 
 app.get("/", (req, res) => {
 	res.redirect("/posts");
@@ -51,9 +51,9 @@ app.get("/", (req, res) => {
 
 // route handlers for posts and auth
 app.use("/posts", postsRouter);
-app.use("/auth", authRouter);
+app.use("/auth", oauthRouter);
 app.use(errorHandler);
 
 app.use((req, res) => {
-	res.status(404).send("404, not found");
+	res.status(404).send("Find a route which exists noob");
 });

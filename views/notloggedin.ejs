@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/normalize.css" type="text/css">
+  <link rel="stylesheet" href="../css/main.css" type="text/css">
+  <link rel="stylesheet" href="../css/auth/layout.css" type="text/css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Montserrat&family=Open+Sans&display=swap"
+    rel="stylesheet">
+  <script src="https://www.google.com/recaptcha/api.js?render=6LdluvUdAAAAAHzi7lV8XpHwj5gpv1yfDEjeYVoL"></script>
+</head>
+
+<body>
+  <div class="login-container">
+    <form id="login-form" class="form-content" action="/auth/discord">
+      <span class="">You are not logged in, login using discord to continue</span>
+      <span id="login-form-error" class="form-error hidden"></span>
+      <input type="submit" class="form-submit-button unselectable non-draggable" value="Login">
+    </form>
+  </div>
+  <script src="js/auth.js"></script>
+</body>
+
+</html>

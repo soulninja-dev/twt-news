@@ -13,12 +13,13 @@
     <link rel="stylesheet" href="css/posts/news-content.css" type="text/css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Montserrat&family=Open+Sans&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter&family=Montserrat&family=Open+Sans&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
     <script>
-	    var nextPage = "<%- pagination.next ? pagination.next.page : undefined %>";
+        var nextPage = "<%- pagination.next ? pagination.next.page : undefined %>";
         var prevPage = "<%- pagination.prev ? pagination.prev.page : undefined %>";
         var limit = +"<%- limit %>";
         var total = +"<%- total %>";
@@ -32,16 +33,16 @@
         <div class="top-bar-text-container">
             <div class="top-bar-text">TWT News</div>
         </div>
-        <% if (user.name==="anonymous" ) { %>
+        <% if (!user) { %>
             <div class="top-bar-login-button-container">
-                <a class="top-bar-login-button" href="/auth">Login</a>
+                <a class="top-bar-login-button" href="/auth/discord">Login</a>
             </div>
             <% } else { %>
                 <div class="top-bar-user-control-container">
                     <div class="top-bar-user-control" onclick="showUserControl()">
                         <img src="/assets/account.png" alt="" class="user-control-avatar">
                         <div class="user-control-text">
-                            <%= user.name; %>
+                            <%= user %>
                         </div>
                     </div>
                     <div class="user-control-dropdown hidden">
@@ -69,7 +70,7 @@
                         <img src="assets/chevron-right.png" alt="Next" class="pagination-control-button"
                             onclick="pageNext()">
                     </div>
-                    <% if (user.name !=="anonymous" ) { %>
+                    <% if (user) { %>
                         <a class="news-items-create-button" href="/posts/create">Create</a>
                         <% } %>
                 </div>
@@ -90,16 +91,15 @@
                                     </div>
                                 </div>
                                 <div class="news-item-footer">
-                                    <%= post.author.name; %>
+                                    <%= post.author; %>
                                 </div>
                             </div>
                             <div class="news-item-view-button unselectable non-draggable" onclick="newsItemClicked(
                                             `<%= post.title; %>`,
-                                            `<%= post.author.name; %>`,
-                                            `<%= post.author._id; %>`,
+                                            `<%= post.author; %>`,
                                             `<%= post.body; %>`,
                                             `<%= post.createdAt; %>`,
-                                            `<%= user._id; %>`,
+                                            `<%= user; %>`,
                                             `<%= post._id; %>`
                                         )">
                             </div>
