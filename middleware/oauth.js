@@ -32,14 +32,17 @@ const checkUser = async (req, res, next) => {
 // next() if yes, or else reject request
 const setUserInfo = async (req, res, next) => {
 	if (!req.cookies.jwt) {
+		console.log("error: no jwt cookie -> not setting user data");
 		res.locals.user = null;
 		return next();
 	}
 	const accessToken = getJWTAccessToken(req, res);
+	console.log(`access_token: ${accessToken}`);
 	const result = await fetch(userinfo_url, {
 		headers: { authorization: "Bearer " + accessToken },
 	})
 		.then((data) => data.json())
+		.then((data) => console.log(data))
 		.catch((err) => {
 			console.log(err);
 			return res.status(402).json({ status: "error", error: err });
@@ -48,10 +51,12 @@ const setUserInfo = async (req, res, next) => {
 	if (result.username) {
 		// set res.user to result so that we can access user data in controllers
 		const user = result.username + "#" + result.discriminator;
-		console.log(user);
+		console.log(`setting user data -> ${user}`);
 		res.locals.user = user;
 		return next();
 	}
+
+	console.log("error: else condition -> setting user to null (wrong result)");
 	res.locals.user = null;
 	next();
 };
