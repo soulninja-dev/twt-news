@@ -13,6 +13,7 @@ const getJWTAccessToken = (req, res, next) => {
 				error: err,
 			});
 		}
+		console.log(decodedToken);
 		console.log(`getting jwt cookie -> ${decodedToken.access_token}`);
 		accessToken = decodedToken.access_token;
 	});
