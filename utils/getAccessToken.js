@@ -2,6 +2,9 @@ const jwt = require("jsonwebtoken");
 // get the access_token stored in the cookie in the request
 const getJWTAccessToken = (req, res, next) => {
 	let accessToken = "";
+	console.log("jwt in getJWTAccessToken");
+	console.log(req.cookies);
+	console.log(req.cookies.jwt);
 	jwt.verify(req.cookies.jwt, process.env.JWT_SECRET, (err, decodedToken) => {
 		if (err) {
 			return res.status(500).json({
@@ -10,6 +13,7 @@ const getJWTAccessToken = (req, res, next) => {
 				error: err,
 			});
 		}
+		console.log(`getting jwt cookie -> ${decodedToken.access_token}`);
 		accessToken = decodedToken.access_token;
 	});
 	return accessToken;
