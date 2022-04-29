@@ -29,6 +29,7 @@ const getAccessToken = async (req, res) => {
 		code: req.query.code,
 		redirect_uri: `${req.protocol}://${req.get("host")}/auth/discord`,
 	};
+	console.log(params);
 	// send POST to discord access_token API with needed info
 	const OAuthResult = await fetch(tokenURL, {
 		method: "POST",
@@ -42,6 +43,8 @@ const getAccessToken = async (req, res) => {
 			console.log(err);
 		});
 
+	console.log(`OAuthResult: `);
+	console.log(OAuthResult);
 	// setting cookie
 	const token = generateJWTToken({ access_token: OAuthResult.access_token });
 	console.log(`token: ${token}`);
