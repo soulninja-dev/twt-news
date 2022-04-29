@@ -8,9 +8,11 @@ const getJWTAccessToken = require("../utils/getAccessToken");
 const redirect_url = process.env.REDIRECT_URL;
 const userinfo_url = "https://discord.com/api/users/@me";
 
-const expireTime = 50 * 24 * 60 * 60;
+const expireTime = 7 * 24 * 60 * 60;
 // generate jwt token stored in cookie with the payload
 function generateJWTToken(payload) {
+	console.log(`signing payload: `);
+	console.log(payload);
 	return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: expireTime });
 }
 
@@ -41,11 +43,9 @@ const getAccessToken = async (req, res) => {
 		});
 
 	// setting cookie
-	res.cookie(
-		"jwt",
-		generateJWTToken({ access_token: OAuthResult.access_token }),
-		{ httpOnly: true, maxAge: expireTime * 1000 }
-	);
+	const token = generateJWTToken({ access_token: OAuthResult.access_token });
+	console.log(`token: ${token}`);
+	res.cookie("jwt", token, { httpOnly: true, maxAge: expireTime * 1000 });
 
 	return OAuthResult.access_token;
 };
