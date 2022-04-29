@@ -42,11 +42,13 @@ const setUserInfo = async (req, res, next) => {
 		headers: { authorization: "Bearer " + accessToken },
 	})
 		.then((data) => data.json())
-		.then((data) => console.log(data))
 		.catch((err) => {
 			console.log(err);
 			return res.status(402).json({ status: "error", error: err });
 		});
+
+	console.log("result: ");
+	console.log(result);
 
 	if (result.username) {
 		// set res.user to result so that we can access user data in controllers
