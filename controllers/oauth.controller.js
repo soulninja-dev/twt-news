@@ -27,7 +27,7 @@ const getAccessToken = async (req, res) => {
 		client_secret: process.env.CLIENT_SECRET,
 		grant_type: "authorization_code",
 		code: req.query.code,
-		redirect_uri: `${req.protocol}://${req.get("host")}/auth/discord`,
+		redirect_uri: `${process.env.REDIRECT_URI}`,
 	};
 	console.log(params);
 	// send POST to discord access_token API with needed info
